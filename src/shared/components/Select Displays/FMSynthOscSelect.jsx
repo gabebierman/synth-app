@@ -1,28 +1,16 @@
 import React, { useState } from "react";
 
-function FMSynthOscSelect({ setOsc, setModOsc, oscDisplay }) {
+function FMSynthOscSelect({ setOsc }) {
     return (
         <>
-            {oscDisplay && (
-                <div>
-                    <select id="fmosc" onChange={(e) => setOsc(e.target.value)}>
-                        <option value={"fmsine"}>Sine</option>
-                        <option value={"fmsquare"}>Square</option>
-                        <option value={"fmsawtooth"}>Sawtooth</option>
-                        <option value={"fmtriangle"}>Tirangle</option>
-                    </select>
-                </div>
-            )}
-            {!oscDisplay && (
-                <div>
-                    <select id="fmmodosc" onChange={(e) => setModOsc(e.target.value)}>
-                        <option value={"fmsine"}>Sine</option>
-                        <option value={"fmsquare"}>Square</option>
-                        <option value={"fmsawtooth"}>Sawtooth</option>
-                        <option value={"fmtriangle"}>Tirangle</option>
-                    </select>
-                </div>
-            )}
+            <div>
+                <select id="fmosc" onChange={(e) => setOsc(e.target.value)}>
+                    <option value={"fmsine"}>Sine</option>
+                    <option value={"fmsquare"}>Square</option>
+                    <option value={"fmsawtooth"}>Sawtooth</option>
+                    <option value={"fmtriangle"}>Tirangle</option>
+                </select>
+            </div>
         </>
     );
 }

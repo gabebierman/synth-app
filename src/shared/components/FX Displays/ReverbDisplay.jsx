@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import reverb from "../../functions/fx/Reverb";
 
-function ReverbDisplay() {
+function ReverbDisplay({}) {
+    const [wet, setWet] = useState(0);
+    const REVERB = reverb({
+        wet,
+    });
     return (
         <>
-            <div>Display</div> <label htmlFor="wet">Wet</label>
+            <div>Reverb Display</div> <label htmlFor="wet">Wet</label>
             <input
                 type="range"
                 id="wet"
