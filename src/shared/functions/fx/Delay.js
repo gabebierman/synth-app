@@ -1,18 +1,18 @@
 import * as tone from "tone";
 
 /**
- * @param delayTime time
- * @param feedback .001 - .999
- * @param maxDelay seconds
- * @param wet .001 - .999
+ * @param delayDelayTine time
+ * @param delayFeedback .001 - .999
+ * @param delayMaxDelay seconds
+ * @param delayWet .001 - .999
  */
 
-export default function delay({ delaytime, feedback, maxdelay, wet }) {
+export default function delay({ delayDelayTime, delayFeedback, delayMaxDelay, delayWet }) {
     const output = new tone.PingPongDelay({
-        delayTime: delaytime,
-        feedback: feedback,
-        maxDelay: maxdelay,
-        wet: wet,
+        delayTime: delayDelayTime,
+        feedback: delayFeedback,
+        maxDelay: delayMaxDelay,
+        wet: delayWet,
     }).toDestination();
     return output;
 }

@@ -1,6 +1,11 @@
 import React from "react";
 
-function DistortionDisplay({ setDistortionAmount, setDistortionWet }) {
+function DistortionDisplay({
+    setDistortionAmount,
+    setDistortionWet,
+    distortionAmount,
+    distortionWet,
+}) {
     return (
         <>
             <div>DistortionDisplay</div>
@@ -11,6 +16,7 @@ function DistortionDisplay({ setDistortionAmount, setDistortionWet }) {
                 min="0"
                 max="10"
                 step="1"
+                value={distortionAmount}
                 onChange={(e) => setDistortionAmount(e.target.value)}
             ></input>
             <label htmlFor="wet">Wet</label>
@@ -20,6 +26,7 @@ function DistortionDisplay({ setDistortionAmount, setDistortionWet }) {
                 min=".001"
                 max=".999"
                 step=".01"
+                value={distortionWet}
                 onChange={(e) => setDistortionWet(e.target.value)}
             ></input>
         </>

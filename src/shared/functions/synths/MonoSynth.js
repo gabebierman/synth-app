@@ -18,22 +18,8 @@ function monoSynth({
     port,
 }) {
     const output = new tone.MonoSynth({
-        detune: detune,
         envelope: { attack: attack, decay: decay, sustain: sustain, release: release },
-        filter: {
-            Q: q,
-            fDetune: fDetune,
-            frequency: frequency,
-        },
-        filterEnvelope: {
-            baseFrequency: baseFreq,
-            attack: fAttack,
-            decay: fDecay,
-            sustain: fSustain,
-            release: fRelease,
-        },
-        oscillator: `${osc}`,
-        portamento: port,
+        osc: osc,
     }).toDestination();
     return output;
 }

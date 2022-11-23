@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import FMSynthOscSelect from "../Select Displays/FMSynthOscSelect";
 
 function FMSynthDisplay({
@@ -9,6 +9,12 @@ function FMSynthDisplay({
     setRelease,
     setPort,
     setOsc,
+    detune,
+    attack,
+    decay,
+    sustain,
+    release,
+    port,
     osc,
     synth,
 }) {
@@ -16,20 +22,13 @@ function FMSynthDisplay({
         <>
             <div>FMSynth</div>
             <button onClick={() => synth.triggerAttackRelease("Bb1", "2n")}>FMSynth</button>
-            <label htmlFor="detune">detune</label>
-            <input
-                type="range"
-                id="detune"
-                min="0"
-                max="100"
-                onChange={(e) => setDetune(e.target.value)}
-            ></input>
             <label htmlFor="attack">attack</label>
             <input
                 type="range"
                 id="attack"
                 min="0"
                 max="5"
+                value={attack}
                 onChange={(e) => setAttack(e.target.value)}
             ></input>
             <label htmlFor="decay">decay</label>
@@ -38,6 +37,7 @@ function FMSynthDisplay({
                 id="decay"
                 min="0"
                 max="5"
+                value={decay}
                 onChange={(e) => setDecay(e.target.value)}
             ></input>
             <label htmlFor="sustain">sustain</label>
@@ -46,6 +46,7 @@ function FMSynthDisplay({
                 min=".0001"
                 max=".9999"
                 step=".01"
+                value={sustain}
                 id="sustain"
                 onChange={(e) => setSustain(e.target.value)}
             ></input>
@@ -55,10 +56,18 @@ function FMSynthDisplay({
                 id="release"
                 min="0"
                 max="5"
+                value={release}
                 onChange={(e) => setRelease(e.target.value)}
             ></input>
             <label htmlFor="port">poratmento</label>
-            <input type="range" id="port" onChange={(e) => setPort(e.target.value)}></input>
+            <input
+                type="range"
+                id="port"
+                min="0"
+                max="5"
+                value={port}
+                onChange={(e) => setPort(e.target.value)}
+            ></input>
             <label htmlFor="osc">osc type</label>
             <FMSynthOscSelect
                 setOsc={setOsc}

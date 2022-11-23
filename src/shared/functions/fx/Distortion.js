@@ -1,7 +1,7 @@
 import * as tone from "tone";
 
 /**
- * @param dist number
+ * @param distortion number
  * @param oversample OverSampleType ??
  * @param wet .001 - .999
  */

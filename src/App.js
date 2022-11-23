@@ -1,6 +1,6 @@
 import "./App.css";
 import * as tone from "tone";
-import SingleVoiceDisplay from "./components/SingleVoiceDisplay";
+import SingleVoiceDisplay from "./components/SingleVoiceFM";
 
 function App() {
     return (
