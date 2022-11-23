@@ -18,11 +18,7 @@ function MonoSynthDisplay({
 }) {
     return (
         <>
-            <div>MonoSynth</div>{" "}
-            <button onClick={() => synth.triggerAttackRelease(`${note}${octave}`, "4n")}>
-                MonoSynth
-            </button>
-            <label htmlFor="attack">attack</label>
+            <div>MonoSynth</div> <label htmlFor="attack">attack</label>
             <input
                 type="range"
                 id="attack"

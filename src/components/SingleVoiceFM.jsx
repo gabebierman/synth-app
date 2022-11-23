@@ -3,6 +3,7 @@ import * as tone from "tone";
 import ChorusDisplay from "../shared/components/FX Displays/ChorusDisplay";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
+import NoteSelectDisplay from "../shared/components/NoteSelectDisplay";
 import SequencerDisplay from "../shared/components/Sequencer Display/SequencerDisplay";
 import MonoSynthDisplay from "../shared/components/Synth Displays/MonoSynthDisplay";
 import chorus from "../shared/functions/fx/Chorus";
@@ -29,8 +30,9 @@ function SingleVoiceDisplay() {
     const [delayFeedback, setDelayFeedback] = useState(0);
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
-    const [note, setNote] = useState("C");
-    const [octave, setOctave] = useState(2);
+    const toggle = useCallback(() => {
+        tone.Transport.toggle();
+    }, []);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const chorusModule = chorus({
@@ -57,9 +59,6 @@ function SingleVoiceDisplay() {
         port,
         osc,
     }).connect(distortionModule.input);
-
-    const seq = new tone.Sequence();
-
     return (
         <>
             <div style={{ border: "1px solid black" }}>
@@ -119,7 +118,7 @@ function SingleVoiceDisplay() {
                     setDelayWet={setDelayWet}
                 ></DelayDisplay>
             </div>
-            <SequencerDisplay></SequencerDisplay>
+            <SequencerDisplay synth={synthModule}></SequencerDisplay>
         </>
     );
 }
