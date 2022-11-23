@@ -8,7 +8,7 @@ function FMSynthOscSelect({ setOsc }) {
                     <option value={"fmsine"}>Sine</option>
                     <option value={"fmsquare"}>Square</option>
                     <option value={"fmsawtooth"}>Sawtooth</option>
-                    <option value={"fmtriangle"}>Tirangle</option>
+                    <option value={"fmtriangle"}>Triangle</option>
                 </select>
             </div>
         </>

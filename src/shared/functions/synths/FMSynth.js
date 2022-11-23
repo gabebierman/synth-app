@@ -14,7 +14,6 @@ import * as tone from "tone";
 
 function fmSynth({ detune, attack, decay, sustain, release, port, osc }) {
     const output = new tone.FMSynth({
-        context: tone.context,
         detune: detune,
         envelope: {
             attack: attack,

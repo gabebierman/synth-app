@@ -6,11 +6,10 @@ import * as tone from "tone";
  * @param wet .001 - .999
  */
 
-export default function distortion({ dist, oversample, wet }) {
+export default function distortion({ distortionAmount, distortionWet }) {
     const output = new tone.Distortion({
-        distortion: dist, //number
-        oversample: oversample,
-        wet: wet, //normal range .001-.999
-    }).toDestination();
+        distortion: distortionAmount, //number
+        wet: distortionWet, //normal range .001-.999
+    });
     return output;
 }
