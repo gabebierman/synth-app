@@ -13,6 +13,6 @@ export default function delay({ delayDelayTime, delayFeedback, delayMaxDelay, de
         feedback: delayFeedback,
         maxDelay: delayMaxDelay,
         wet: delayWet,
-    }).toDestination();
+    });
     return output;
 }

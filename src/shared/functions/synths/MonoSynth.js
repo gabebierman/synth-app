@@ -1,26 +1,10 @@
 import * as tone from "tone";
 
-function monoSynth({
-    detune,
-    attack,
-    decay,
-    sustain,
-    release,
-    q,
-    fDetune,
-    frequency,
-    baseFreq,
-    fAttack,
-    fDecay,
-    fSustain,
-    fRelease,
-    osc,
-    port,
-}) {
+function monoSynth({ attack, decay, sustain, release, osc }) {
     const output = new tone.MonoSynth({
         envelope: { attack: attack, decay: decay, sustain: sustain, release: release },
-        osc: osc,
-    }).toDestination();
+        oscillator: { type: osc },
+    });
     return output;
 }
 

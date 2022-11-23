@@ -3,17 +3,11 @@ import * as tone from "tone";
 import ChorusDisplay from "../shared/components/FX Displays/ChorusDisplay";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
-import ReverbDisplay from "../shared/components/FX Displays/ReverbDisplay";
-import FMSynthDisplay from "../shared/components/Synth Displays/FMSynthDisplay";
 import MonoSynthDisplay from "../shared/components/Synth Displays/MonoSynthDisplay";
 import chorus from "../shared/functions/fx/Chorus";
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
-import reverb from "../shared/functions/fx/Reverb";
-import fmSynth from "../shared/functions/synths/FMSynth";
 import monoSynth from "../shared/functions/synths/MonoSynth";
-
-// const context = new tone.OfflineContext(2, 44100 * 40, 44100);
 
 function SingleVoiceDisplay() {
     const [detune, setDetune] = useState(50);
@@ -22,7 +16,7 @@ function SingleVoiceDisplay() {
     const [sustain, setSustain] = useState(0.001);
     const [release, setRelease] = useState(0);
     const [port, setPort] = useState(0);
-    const [osc, setOsc] = useState("");
+    const [osc, setOsc] = useState("sine");
     const [distortionAmount, setDistortionAmount] = useState(0);
     const [distortionWet, setDistortionWet] = useState(0);
     const [chorusDelayTime, setChorusDelayTime] = useState(0);
@@ -34,6 +28,8 @@ function SingleVoiceDisplay() {
     const [delayFeedback, setDelayFeedback] = useState(0);
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
+    const [note, setNote] = useState("C");
+    const [octave, setOctave] = useState(2);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const chorusModule = chorus({
@@ -71,6 +67,10 @@ function SingleVoiceDisplay() {
                 value={chanVol}
                 onChange={(e) => setChanVol(e.target.value)}
             ></input>
+            <label htmlFor="mute">Mute</label>
+            <button id="mue" onClick={() => setChanVol(-1000)}>
+                mute
+            </button>
             <MonoSynthDisplay
                 setDetune={setDetune}
                 setAttack={setAttack}
@@ -80,12 +80,12 @@ function SingleVoiceDisplay() {
                 setPort={setPort}
                 setOsc={setOsc}
                 synth={synthModule}
-                detune={detune}
                 attack={attack}
                 decay={decay}
                 sustain={sustain}
                 release={release}
-                port={port}
+                note={note}
+                octave={octave}
             ></MonoSynthDisplay>
             <DistortionDisplay
                 setDistortionAmount={setDistortionAmount}

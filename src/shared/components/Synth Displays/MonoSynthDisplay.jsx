@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MonoSynthOscSelect from "../Select Displays/MonoSynthOscSelect";
 
 function MonoSynthDisplay({
     attack,
@@ -11,11 +12,16 @@ function MonoSynthDisplay({
     setRelease,
     synth,
     osc,
+    setOsc,
+    note,
+    octave,
 }) {
     return (
         <>
             <div>MonoSynth</div>{" "}
-            <button onClick={() => synth.triggerAttackRelease("E2", "2n")}>MonoSynth</button>
+            <button onClick={() => synth.triggerAttackRelease(`${note}${octave}`, "4n")}>
+                MonoSynth
+            </button>
             <label htmlFor="attack">attack</label>
             <input
                 type="range"
@@ -53,8 +59,7 @@ function MonoSynthDisplay({
                 value={release}
                 onChange={(e) => setRelease(e.target.value)}
             ></input>
-            <label htmlFor="osc">osc type</label>
-            <input type="select" id="osc" value={osc}></input>
+            <MonoSynthOscSelect value={osc} setOsc={setOsc}></MonoSynthOscSelect>
         </>
     );
 }
