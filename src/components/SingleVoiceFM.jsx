@@ -3,6 +3,7 @@ import * as tone from "tone";
 import ChorusDisplay from "../shared/components/FX Displays/ChorusDisplay";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
+import SequencerDisplay from "../shared/components/Sequencer Display/SequencerDisplay";
 import MonoSynthDisplay from "../shared/components/Synth Displays/MonoSynthDisplay";
 import chorus from "../shared/functions/fx/Chorus";
 import delay from "../shared/functions/fx/Delay";
@@ -56,64 +57,70 @@ function SingleVoiceDisplay() {
         port,
         osc,
     }).connect(distortionModule.input);
+
+    const seq = new tone.Sequence();
+
     return (
-        <div style={{ border: "1px solid black" }}>
-            <div>SingleVoiceDisplay</div>
-            <label>chan vol</label>
-            <input
-                type="range"
-                min="-30"
-                max="30"
-                value={chanVol}
-                onChange={(e) => setChanVol(e.target.value)}
-            ></input>
-            <label htmlFor="mute">Mute</label>
-            <button id="mue" onClick={() => setChanVol(-1000)}>
-                mute
-            </button>
-            <MonoSynthDisplay
-                setDetune={setDetune}
-                setAttack={setAttack}
-                setDecay={setDecay}
-                setSustain={setSustain}
-                setRelease={setRelease}
-                setPort={setPort}
-                setOsc={setOsc}
-                synth={synthModule}
-                attack={attack}
-                decay={decay}
-                sustain={sustain}
-                release={release}
-                note={note}
-                octave={octave}
-            ></MonoSynthDisplay>
-            <DistortionDisplay
-                setDistortionAmount={setDistortionAmount}
-                setDistortionWet={setDistortionWet}
-                distortionAmount={distortionAmount}
-                distortionWet={distortionWet}
-            ></DistortionDisplay>
-            <ChorusDisplay
-                setChorusDelayTime={setChorusDelayTime}
-                setChorusDepth={setChorusDepth}
-                setChorusFreq={setChorusFreq}
-                setChorusWet={setChorusWet}
-                chorusDelayTime={chorusDelayTime}
-                chorusDepth={chorusDepth}
-                chorusFreq={chorusFreq}
-                chorusWet={chorusWet}
-            ></ChorusDisplay>
-            <DelayDisplay
-                delayDelayTime={delayDelayTime}
-                setDelayDelayTime={setDelayDelayTime}
-                delayFeedback={delayFeedback}
-                setDelayFeedback={setDelayFeedback}
-                delayMaxDelay={delayMaxDelay}
-                setDelayMaxDelay={setDelayMaxDelay}
-                delayWet={delayWet}
-                setDelayWet={setDelayWet}
-            ></DelayDisplay>
-        </div>
+        <>
+            <div style={{ border: "1px solid black" }}>
+                <div>SingleVoiceDisplay</div>
+                <label>chan vol</label>
+                <input
+                    type="range"
+                    min="-30"
+                    max="30"
+                    value={chanVol}
+                    onChange={(e) => setChanVol(e.target.value)}
+                ></input>
+                <label htmlFor="mute">Mute</label>
+                <button id="mue" onClick={() => setChanVol(-1000)}>
+                    mute
+                </button>
+                <MonoSynthDisplay
+                    setDetune={setDetune}
+                    setAttack={setAttack}
+                    setDecay={setDecay}
+                    setSustain={setSustain}
+                    setRelease={setRelease}
+                    setPort={setPort}
+                    setOsc={setOsc}
+                    synth={synthModule}
+                    attack={attack}
+                    decay={decay}
+                    sustain={sustain}
+                    release={release}
+                    note={note}
+                    octave={octave}
+                ></MonoSynthDisplay>
+                <DistortionDisplay
+                    setDistortionAmount={setDistortionAmount}
+                    setDistortionWet={setDistortionWet}
+                    distortionAmount={distortionAmount}
+                    distortionWet={distortionWet}
+                ></DistortionDisplay>
+                <ChorusDisplay
+                    setChorusDelayTime={setChorusDelayTime}
+                    setChorusDepth={setChorusDepth}
+                    setChorusFreq={setChorusFreq}
+                    setChorusWet={setChorusWet}
+                    chorusDelayTime={chorusDelayTime}
+                    chorusDepth={chorusDepth}
+                    chorusFreq={chorusFreq}
+                    chorusWet={chorusWet}
+                ></ChorusDisplay>
+                <DelayDisplay
+                    delayDelayTime={delayDelayTime}
+                    setDelayDelayTime={setDelayDelayTime}
+                    delayFeedback={delayFeedback}
+                    setDelayFeedback={setDelayFeedback}
+                    delayMaxDelay={delayMaxDelay}
+                    setDelayMaxDelay={setDelayMaxDelay}
+                    delayWet={delayWet}
+                    setDelayWet={setDelayWet}
+                ></DelayDisplay>
+            </div>
+            <SequencerDisplay></SequencerDisplay>
+        </>
     );
 }
 
