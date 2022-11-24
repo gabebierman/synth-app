@@ -1,50 +1,43 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect, useSelector } from "react";
+import { connect } from "react-redux";
 import * as Tone from "tone";
-
-const notes = ["C2", "D2", "E2", "F2", "G2", "A2", "B2", "C3"].reverse();
-
-const initialPattern = [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-];
 
 const Sequencer = ({ synth }) => {
     const [activeColumn, setColumn] = useState(0);
     const [pattern, updatePattern] = useState(initialPattern);
+    const scale = useSelector((state) => state.scale);
+    console.log("scale state arr", scale);
+    const notes = [].reverse();
+    scale.push(notes);
+    console.log("notes arr", notes);
+    //TODO - get scale , create notes array with scale , map number of rows to length of notes array
+    const initialPattern = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    ];
+    useEffect(() => {
+        const loop = new Tone.Sequence(
+            (time, col) => {
+                // Update active column
+                setColumn(col);
+                pattern.map((row, noteIndex) => {
+                    if (row[col]) {
+                        synth.triggerAttackRelease(notes[noteIndex], "8n", time);
+                    }
+                });
+            },
+            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+            "16n"
+        ).start(0);
+        return () => loop.dispose();
+    }, [pattern, synth]);
 
-    useEffect(
-        () => {
-            const loop = new Tone.Sequence(
-                (time, col) => {
-                    // Update active column for animation
-                    setColumn(col);
-
-                    // Loop pattern
-                    pattern.map((row, noteIndex) => {
-                        // If active
-                        if (row[col]) {
-                            // Play based on which row
-                            synth.triggerAttackRelease(notes[noteIndex], "8n", time);
-                        }
-                    });
-                },
-                [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-                "16n"
-            ).start(0);
-            return () => loop.dispose();
-        },
-        [pattern] // Retrigger when pattern changes
-    );
-
-    // Toggle playing / stopped
-
-    // Update pattern by making a copy and inverting the value
+    // Update pattern
     function setPattern({ x, y, value }) {
         const patternCopy = [...pattern];
         patternCopy[y][x] = +!value;
@@ -64,7 +57,6 @@ const Sequencer = ({ synth }) => {
                     ))}
                 </div>
             ))}
-            <button onClick={() => toggle()}>start / stop</button>
         </div>
     );
 };
@@ -86,4 +78,10 @@ const Square = ({ active, value, onClick }) => (
     </div>
 );
 
-export default Sequencer;
+const mapDispatchToProps = () => ({});
+
+const mapStateToProps = (state) => ({
+    date: state.date,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sequencer);

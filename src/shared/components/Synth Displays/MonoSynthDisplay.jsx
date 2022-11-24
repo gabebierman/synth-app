@@ -13,8 +13,6 @@ function MonoSynthDisplay({
     synth,
     osc,
     setOsc,
-    note,
-    octave,
 }) {
     return (
         <>

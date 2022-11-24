@@ -1,0 +1,24 @@
+lydian
+major 
+mixolydian 
+dorian 
+aeolian
+phrygian 
+locrian 
+melodic minor 
+minor pentatonic
+iwato
+kumoijoshi 
+pelog 
+prometheus 
+augmented 
+harmonic minor
+neopolitan
+diminished  
+harmonic major
+egyptian
+flamenco 
+balinese
+persian
+mystery #1
+enigmatic

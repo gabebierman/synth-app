@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import * as tone from "tone";
+import { Context } from "tone";
 import ChorusDisplay from "../shared/components/FX Displays/ChorusDisplay";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
-import NoteSelectDisplay from "../shared/components/NoteSelectDisplay";
 import SequencerDisplay from "../shared/components/Sequencer Display/SequencerDisplay";
 import MonoSynthDisplay from "../shared/components/Synth Displays/MonoSynthDisplay";
 import chorus from "../shared/functions/fx/Chorus";
@@ -22,23 +22,16 @@ function SingleVoiceDisplay() {
     const [distortionAmount, setDistortionAmount] = useState(0);
     const [distortionWet, setDistortionWet] = useState(0);
     const [chorusDelayTime, setChorusDelayTime] = useState(0);
-    const [chorusDepth, setChorusDepth] = useState(0);
-    const [chorusFreq, setChorusFreq] = useState(0);
     const [chorusWet, setChorusWet] = useState(0);
     const [chanVol, setChanVol] = useState(0);
     const [delayDelayTime, setDelayDelayTime] = useState(1);
     const [delayFeedback, setDelayFeedback] = useState(0);
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
-    const toggle = useCallback(() => {
-        tone.Transport.toggle();
-    }, []);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const chorusModule = chorus({
         chorusDelayTime,
-        chorusDepth,
-        chorusFreq,
         chorusWet,
     }).connect(chan.input);
     const delayModule = delay({
@@ -88,8 +81,6 @@ function SingleVoiceDisplay() {
                     decay={decay}
                     sustain={sustain}
                     release={release}
-                    note={note}
-                    octave={octave}
                 ></MonoSynthDisplay>
                 <DistortionDisplay
                     setDistortionAmount={setDistortionAmount}
@@ -99,12 +90,8 @@ function SingleVoiceDisplay() {
                 ></DistortionDisplay>
                 <ChorusDisplay
                     setChorusDelayTime={setChorusDelayTime}
-                    setChorusDepth={setChorusDepth}
-                    setChorusFreq={setChorusFreq}
                     setChorusWet={setChorusWet}
                     chorusDelayTime={chorusDelayTime}
-                    chorusDepth={chorusDepth}
-                    chorusFreq={chorusFreq}
                     chorusWet={chorusWet}
                 ></ChorusDisplay>
                 <DelayDisplay

@@ -11,13 +11,13 @@ import * as tone from "tone";
  *
  */
 
-export default function chorus({ chorusDelayTime, chorusDepth, chorusFreq, chorusWet }) {
+export default function chorus({ chorusDelayTime, chorusWet }) {
     const output = new tone.Chorus({
-        spread: 180,
         delayTime: chorusDelayTime,
-        depth: chorusDepth,
-        frequnecy: chorusFreq,
+        spread: 180,
+        depth: 0.999,
         wet: chorusWet,
+        frequency: 100,
     });
     return output;
 }
