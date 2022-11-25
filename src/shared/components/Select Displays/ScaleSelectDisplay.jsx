@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { setScale } from "../../redux/slices/scaleSlice";
 import * as Scale from "tonal-scale";
 
-function ScaleSelectDisplay({ scale, setScale }) {
+function ScaleSelectDisplay({}) {
     const [key, setKey] = useState("major");
     const [tonic, setTonic] = useState("C");
-    const getScale = Scale.notes(tonic, key);
+    setScale(Scale.notes(tonic, key));
     return (
         <>
             <div>ScaleSelectDisplay</div>
@@ -55,4 +57,10 @@ function ScaleSelectDisplay({ scale, setScale }) {
     );
 }
 
-export default ScaleSelectDisplay;
+const mapDispatchToProps = (dispatch) => ({ setScale: (scale) => dispatch(setScale(scale)) });
+
+const mapStateToProps = (state) => ({
+    scale: state.scale,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ScaleSelectDisplay);

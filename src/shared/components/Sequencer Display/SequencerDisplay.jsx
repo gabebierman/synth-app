@@ -1,25 +1,22 @@
-import React, { useState, useEffect, useSelector } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import * as Tone from "tone";
 
 const Sequencer = ({ synth }) => {
+    const scale = useSelector((state) => state.scale);
+    const initialPattern = [];
     const [activeColumn, setColumn] = useState(0);
     const [pattern, updatePattern] = useState(initialPattern);
-    const scale = useSelector((state) => state.scale);
     console.log("scale state arr", scale);
+    const bar = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const notes = [].reverse();
-    scale.push(notes);
-    console.log("notes arr", notes);
+    for (let i = 0; i < scale.length; i++) {
+        initialPattern.push(bar);
+    }
+
+    // scale.push(notes);
+    // console.log("notes arr", notes);
     //TODO - get scale , create notes array with scale , map number of rows to length of notes array
-    const initialPattern = [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ];
     useEffect(() => {
         const loop = new Tone.Sequence(
             (time, col) => {
@@ -81,7 +78,7 @@ const Square = ({ active, value, onClick }) => (
 const mapDispatchToProps = () => ({});
 
 const mapStateToProps = (state) => ({
-    date: state.date,
+    scale: state.scale,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sequencer);
