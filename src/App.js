@@ -26,7 +26,7 @@ function App() {
                 onChange={(e) => setTempo(e.target.value)}
             ></input>
             <ScaleSelectDisplay></ScaleSelectDisplay>
-            <SingleVoiceDisplay></SingleVoiceDisplay>
+            <SingleVoiceDisplay tempo={tempo}></SingleVoiceDisplay>
         </>
     );
 }

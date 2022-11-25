@@ -12,11 +12,10 @@ const Sequencer = ({ synth }) => {
     const notes = [].reverse();
     for (let i = 0; i < scale.length; i++) {
         initialPattern.push(bar);
+        notes.push(`${scale[i]}2`);
     }
+    console.log(notes);
 
-    // scale.push(notes);
-    // console.log("notes arr", notes);
-    //TODO - get scale , create notes array with scale , map number of rows to length of notes array
     useEffect(() => {
         const loop = new Tone.Sequence(
             (time, col) => {
