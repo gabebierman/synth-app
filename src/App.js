@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import * as tone from "tone";
 import SingleVoiceDisplay from "./components/SingleVoice";
 import ScaleSelectDisplay from "./shared/components/Select Displays/ScaleSelectDisplay";
-import Sequencer from "./shared/components/Sequencer Display/SequencerDisplay";
 
 function App() {
     const [tempo, setTempo] = useState(144);
@@ -26,7 +25,7 @@ function App() {
                 onChange={(e) => setTempo(e.target.value)}
             ></input>
             <ScaleSelectDisplay></ScaleSelectDisplay>
-            <SingleVoiceDisplay tempo={tempo}></SingleVoiceDisplay>
+            <SingleVoiceDisplay></SingleVoiceDisplay>
         </>
     );
 }
