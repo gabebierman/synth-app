@@ -1,43 +1,24 @@
 import React, { useState } from "react";
-import membraneSynth from "../shared/components/functions/synths/MembraneSynth";
+// import membraneSynth from "../shared/components/functions/synths/MembraneSynth";
 
-function MembraneSynthDisplay() {
-    const [detune, setDetune] = useState(50);
-    const [attack, setAttack] = useState(0);
-    const [decay, setDecay] = useState(0);
-    const [sustain, setSustain] = useState(0.5);
-    const [release, setRelease] = useState(0);
-    const [pitchDecay, setPitchDecay] = useState(0);
-    const [octaves, setOctaves] = useState(1);
-    const [port, setPort] = useState(0);
-    const [osc, setOsc] = useState("fmsquare");
-
-    const MEMEBRANESYNTH = membraneSynth({
-        detune,
-        attack,
-        decay,
-        sustain,
-        release,
-        pitchDecay,
-        octaves,
-        osc,
-        port,
-    });
+function MembraneSynthDisplay({
+    setAttack,
+    setDecay,
+    setSustain,
+    setRelease,
+    setPitchDecay,
+    attack,
+    decay,
+    sustain,
+    release,
+    pitchDecay,
+}) {
     return (
         <>
             <div>MembraneSynth</div>{" "}
-            <button onClick={() => MEMEBRANESYNTH.triggerAttackRelease("F2", "2n")}>
+            {/* <button onClick={() => MEMEBRANESYNTH.triggerAttackRelease("F2", "2n")}>
                 MembraneSynth
-            </button>
-            <label htmlFor="detune">detune</label>
-            <input
-                type="range"
-                id="detune"
-                min="0"
-                max="100"
-                value={detune}
-                onChange={(e) => setDetune(e.target.value)}
-            ></input>
+            </button> */}
             <label htmlFor="attack">attack</label>
             <input
                 type="range"
@@ -75,28 +56,14 @@ function MembraneSynthDisplay() {
                 value={release}
                 onChange={(e) => setRelease(e.target.value)}
             ></input>
-            <label htmlFor="pitchDecay">pitchDecay</label>
+            <label htmlFor="pichdecay">pitch decay</label>
             <input
                 type="range"
-                id="pitchDecay"
+                id="release"
                 min="0"
                 max="5"
                 value={pitchDecay}
                 onChange={(e) => setPitchDecay(e.target.value)}
-            ></input>
-            <label htmlFor="port">poratmento</label>
-            <input
-                type="range"
-                id="port"
-                value={port}
-                onChange={(e) => setPort(e.target.value)}
-            ></input>
-            <label htmlFor="osc">osc type</label>
-            <input
-                type="select"
-                id="osc"
-                value={osc}
-                onChange={(e) => setOsc(e.target.value)}
             ></input>
         </>
     );

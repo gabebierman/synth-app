@@ -3,6 +3,7 @@ import { useCallback, useState } from "react";
 import * as tone from "tone";
 import SingleVoiceDisplay from "./components/SingleVoice";
 import ScaleSelectDisplay from "./shared/components/Select Displays/ScaleSelectDisplay";
+import Kick from "./components/Kick";
 
 function App() {
     const [tempo, setTempo] = useState(144);
@@ -26,6 +27,7 @@ function App() {
             ></input>
             <ScaleSelectDisplay></ScaleSelectDisplay>
             <SingleVoiceDisplay></SingleVoiceDisplay>
+            <Kick></Kick>
         </>
     );
 }
