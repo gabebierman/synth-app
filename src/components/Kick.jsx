@@ -46,7 +46,7 @@ function Kick() {
         sustain,
         release,
         pitchDecay,
-    }).toDestination();
+    }).connect(distortionModule.input);
 
     return (
         <>

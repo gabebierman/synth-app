@@ -5,7 +5,6 @@ import ChorusDisplay from "../shared/components/FX Displays/ChorusDisplay";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
 import SequencerDisplay from "../shared/components/Sequencer Display/SequencerDisplay";
-import Sequencer from "../shared/components/Sequencer Display/SEQTest";
 import MonoSynthDisplay from "../shared/components/Synth Displays/MonoSynthDisplay";
 import chorus from "../shared/functions/fx/Chorus";
 import delay from "../shared/functions/fx/Delay";
@@ -107,7 +106,6 @@ function SingleVoiceDisplay() {
                 ></DelayDisplay>
             </div>
             <SequencerDisplay synth={synthModule}></SequencerDisplay>
-            {/* <Sequencer></Sequencer> */}
         </>
     );
 }

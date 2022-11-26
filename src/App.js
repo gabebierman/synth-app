@@ -4,6 +4,7 @@ import * as tone from "tone";
 import SingleVoiceDisplay from "./components/SingleVoice";
 import ScaleSelectDisplay from "./shared/components/Select Displays/ScaleSelectDisplay";
 import Kick from "./components/Kick";
+import HitHat from "./components/HiHat";
 
 function App() {
     const [tempo, setTempo] = useState(144);
@@ -28,6 +29,7 @@ function App() {
             <ScaleSelectDisplay></ScaleSelectDisplay>
             <SingleVoiceDisplay></SingleVoiceDisplay>
             <Kick></Kick>
+            <HitHat></HitHat>
         </>
     );
 }
