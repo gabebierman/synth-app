@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect, useSelector } from "react-redux";
 import * as tone from "tone";
 import { setOctave } from "../../redux/slices/octaveSlice";
+import { Square } from "../../styled/Sqaure";
 
 const Sequencer = ({ synth, setOctave, octave }) => {
     const scale = useSelector((state) => state.scale);
@@ -40,7 +41,7 @@ const Sequencer = ({ synth, setOctave, octave }) => {
             "8n"
         ).start(0);
         return () => loop.dispose();
-    }, [pattern, synth]);
+    }, [pattern, synth, scale]);
 
     // Update pattern
     function setPattern({ x, y, value }) {
@@ -71,23 +72,6 @@ const Sequencer = ({ synth, setOctave, octave }) => {
         </div>
     );
 };
-
-const Square = ({ active, value, onClick }) => (
-    <div
-        style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 25,
-            height: 25,
-            background: value ? "#999" : "",
-            border: active ? "1px solid #999" : "1px solid #eee",
-        }}
-        onClick={onClick}
-    >
-        {value}
-    </div>
-);
 
 const mapDispatchToProps = (dispatch) => ({ setOctave: (oct) => dispatch(setOctave(oct)) });
 

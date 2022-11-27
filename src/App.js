@@ -1,5 +1,9 @@
 import "./App.css";
 import { useCallback, useState } from "react";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 import * as tone from "tone";
 import SingleVoiceDisplay from "./components/SingleVoice";
 import ScaleSelectDisplay from "./shared/components/Select Displays/ScaleSelectDisplay";

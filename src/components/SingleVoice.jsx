@@ -10,6 +10,7 @@ import chorus from "../shared/functions/fx/Chorus";
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
+import { Knob } from "primereact/knob";
 
 function SingleVoiceDisplay() {
     const [detune, setDetune] = useState(50);
@@ -57,13 +58,13 @@ function SingleVoiceDisplay() {
             <div style={{ border: "1px solid black" }}>
                 <div>SingleVoiceDisplay</div>
                 <label>chan vol</label>
-                <input
-                    type="range"
-                    min="-30"
-                    max="30"
+                <Knob
+                    min={-30}
+                    max={30}
                     value={chanVol}
-                    onChange={(e) => setChanVol(e.target.value)}
-                ></input>
+                    textColor={"white"}
+                    onChange={(e) => setChanVol(e.value)}
+                ></Knob>
                 <label htmlFor="mute">Mute</label>
                 <button id="mue" onClick={() => setChanVol(-1000)}>
                     mute
