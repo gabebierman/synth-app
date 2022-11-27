@@ -12,8 +12,9 @@ import SingleVoiceDisplay from "./components/SingleVoice";
 import ScaleSelectDisplay from "./shared/components/Select Displays/ScaleSelectDisplay";
 import Kick from "./components/Kick";
 import HitHat from "./components/HiHat";
-import { current } from "@reduxjs/toolkit";
 import Snare from "./components/Snare";
+import Menu from "./shared/components/SignInDisplay";
+import SignInDisplay from "./shared/components/SignInDisplay";
 
 function App() {
     const [tempo, setTempo] = useState(144);
@@ -26,6 +27,7 @@ function App() {
     tone.Transport.bpm.value = tempo;
     return (
         <>
+            <SignInDisplay></SignInDisplay>
             <div style={{ padding: "5px", display: "flex", justifyContent: "space-evenly" }}>
                 <div
                     style={{
