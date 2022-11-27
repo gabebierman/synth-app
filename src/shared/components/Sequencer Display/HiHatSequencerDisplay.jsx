@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as tone from "tone";
+import { Square } from "../../styled/Sqaure";
 
 function HiHatSeqeuncerDisplay({ synth }) {
     const initialPattern = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
@@ -28,7 +29,6 @@ function HiHatSeqeuncerDisplay({ synth }) {
 
     return (
         <>
-            <div>HiHatSeqeuncerDisplay</div>{" "}
             {pattern.map((row, y) => (
                 <div key={y} style={{ display: "flex", justifyContent: "center" }}>
                     {row.map((value, x) => (
@@ -44,22 +44,5 @@ function HiHatSeqeuncerDisplay({ synth }) {
         </>
     );
 }
-
-const Square = ({ active, value, onClick }) => (
-    <div
-        style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 25,
-            height: 25,
-            background: value ? "#999" : "",
-            border: active ? "1px solid #999" : "1px solid #eee",
-        }}
-        onClick={onClick}
-    >
-        {value}
-    </div>
-);
 
 export default HiHatSeqeuncerDisplay;

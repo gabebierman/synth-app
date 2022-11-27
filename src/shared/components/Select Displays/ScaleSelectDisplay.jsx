@@ -36,7 +36,7 @@ function ScaleSelectDisplay({ scale, setScale }) {
             <Select id="key" value={key} onChange={(e) => setKey(e.target.value)}>
                 <MenuItem value="major">major</MenuItem>
                 <MenuItem value="minor">minor</MenuItem>
-                <MenuItem value="melodic major">melodic minor</MenuItem>
+                <MenuItem value="melodic major">melodic major</MenuItem>
                 <MenuItem value="melodic minor">melodic minor</MenuItem>
                 <MenuItem value="harmonic major">harmonic major</MenuItem>
                 <MenuItem value="harmonic minor">harmonic minor</MenuItem>
