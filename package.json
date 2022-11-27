@@ -12,8 +12,16 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoos": "^0.0.1-security",
+    "mysql": "^2.18.1",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0",
     "primeicons": "^6.0.1",
     "primereact": "^8.7.2",
+    "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
@@ -21,13 +29,18 @@
     "redux": "^4.2.0",
     "tonal-scale": "^2.2.2",
     "tone": "^14.7.77",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "node server.prod.js",
+    "front": "react-scripts start",
+    "build-front": "react-scripts build",
+    "build": "npm-run-all  prod build-front",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "back": "SET NODE_ENV=DEVELOPMENT && nodemon --exec babel-node server.js",
+    "prod": "webpack --config webpack.config.server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -46,5 +59,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.20.2",
+    "@babel/node": "^7.20.2",
+    "@babel/preset-env": "^7.20.2",
+    "babel-plugin-inline-dotenv": "^1.7.0",
+    "dotenv-webpack": "^8.0.1",
+    "nodemon": "^2.0.20",
+    "npm-run-all": "^4.1.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
   }
 }
