@@ -5,6 +5,7 @@ import { octaveReducer } from "./slices/octaveSlice";
 import { scaleReducer } from "./slices/scaleSlice";
 import { snareReducer } from "./slices/snareFavoriteSlice";
 import { synthReducer } from "./slices/synthFavoriteSlice";
+import { userReducer } from "./slices/userSlice";
 
 export default configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export default configureStore({
         kick: kickReducer,
         snare: snareReducer,
         synth: synthReducer,
+        user: userReducer,
     },
     middleware: (getdefaultMiddleware) => getdefaultMiddleware().concat([]),
 });
