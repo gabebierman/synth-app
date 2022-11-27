@@ -1,6 +1,6 @@
 import * as tone from "tone";
 
-function membraneSynth({ detune, attack, decay, sustain, release, pitchDecay }) {
+function membraneSynth({ attack, decay, sustain, release, pDecay }) {
     const output = new tone.MembraneSynth({
         envelope: {
             attack: attack,
@@ -10,7 +10,7 @@ function membraneSynth({ detune, attack, decay, sustain, release, pitchDecay }) 
             attackCurve: "exponential",
         },
         octaves: 10,
-        pitchDecay: pitchDecay,
+        pitchDecay: pDecay,
     });
     return output;
 }

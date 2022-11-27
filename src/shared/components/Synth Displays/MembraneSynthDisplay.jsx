@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import membraneSynth from "../shared/components/functions/synths/MembraneSynth";
+import { Knob } from "primereact/knob";
 
 function MembraneSynthDisplay({
     setAttack,
@@ -11,60 +11,73 @@ function MembraneSynthDisplay({
     decay,
     sustain,
     release,
-    pitchDecay,
+    pDecay,
 }) {
     return (
         <>
-            <div>MembraneSynth</div>{" "}
-            {/* <button onClick={() => MEMEBRANESYNTH.triggerAttackRelease("F2", "2n")}>
-                MembraneSynth
-            </button> */}
-            <label htmlFor="attack">attack</label>
-            <input
-                type="range"
-                id="attack"
-                min="0"
-                max="5"
-                value={attack}
-                onChange={(e) => setAttack(e.target.value)}
-            ></input>
-            <label htmlFor="decay">decay</label>
-            <input
-                type="range"
-                id="decay"
-                min="0"
-                max="5"
-                value={decay}
-                onChange={(e) => setDecay(e.target.value)}
-            ></input>
-            <label htmlFor="sustian">sustain</label>
-            <input
-                type="range"
-                min=".0001"
-                max=".9999"
-                step=".01"
-                id="sustain"
-                value={sustain}
-                onChange={(e) => setSustain(e.target.value)}
-            ></input>
-            <label htmlFor="release">release</label>
-            <input
-                type="range"
-                id="release"
-                min="0"
-                max="5"
-                value={release}
-                onChange={(e) => setRelease(e.target.value)}
-            ></input>
-            <label htmlFor="pichdecay">pitch decay</label>
-            <input
-                type="range"
-                id="release"
-                min="0"
-                max="5"
-                value={pitchDecay}
-                onChange={(e) => setPitchDecay(e.target.value)}
-            ></input>
+            <div>ADSR</div>
+            <div style={{ display: "flex" }}>
+                <div>
+                    <label htmlFor="attack">attack</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0}
+                        max={2}
+                        step={0.25}
+                        value={attack}
+                        onChange={(e) => setAttack(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="decay">decay</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0}
+                        max={5}
+                        step={0.25}
+                        value={decay}
+                        onChange={(e) => setDecay(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="sustian">sustain</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0.001}
+                        max={0.999}
+                        step={0.05}
+                        value={sustain}
+                        onChange={(e) => setSustain(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="release">release</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0}
+                        max={5}
+                        step={0.25}
+                        value={release}
+                        onChange={(e) => setRelease(e.value)}
+                    ></Knob>
+                </div>
+                {/* <div>
+                    <label htmlFor="pitchdecay">release</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0}
+                        max={5}
+                        step={0.25}
+                        value={pDecay}
+                        onChange={(e) => setPitchDecay(e.value)}
+                    ></Knob>
+                </div> */}
+            </div>
         </>
     );
 }

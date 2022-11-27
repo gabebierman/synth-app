@@ -1,12 +1,9 @@
 import React, { useState, useCallback } from "react";
 import * as tone from "tone";
-import { Context } from "tone";
-import ChorusDisplay from "../shared/components/FX Displays/ChorusDisplay";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
 import SequencerDisplay from "../shared/components/Sequencer Display/SequencerDisplay";
 import MonoSynthDisplay from "../shared/components/Synth Displays/MonoSynthDisplay";
-import chorus from "../shared/functions/fx/Chorus";
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
