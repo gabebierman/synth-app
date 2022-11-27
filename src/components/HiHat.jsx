@@ -10,8 +10,10 @@ import NoiseSynth from "../shared/functions/synths/NoiseSynth";
 import { Knob } from "primereact/knob";
 import { Button } from "@mui/material";
 import NoiseSynthDisplay from "../shared/components/Synth Displays/NoiseSynthDisplay";
+import { addHatFavorite, removeHatFavorite } from "../shared/redux/slices/hatFavoriteSlice";
+import { connect } from "react-redux";
 
-function HitHat() {
+function HitHat({ addHatFavorite, removeHatFavorite, favorites }) {
     const [attack, setAttack] = useState(0);
     const [decay, setDecay] = useState(0.1);
     const [sustain, setSustain] = useState(0);
@@ -47,6 +49,30 @@ function HitHat() {
             <div style={{ display: "flex" }}>
                 <div>
                     <div>Hi Hat</div>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            addHatFavorite({
+                                attack,
+                                decay,
+                                sustain,
+                                release,
+                                distortionAmount,
+                                distortionWet,
+                                chanVol,
+                                delayDelayTime,
+                                delayFeedback,
+                                delayMaxDelay,
+                                delayWet,
+                            });
+                            console.log(favorites);
+                        }}
+                    >
+                        Add channel to favorites
+                        <br></br>
+                        (does not save sequences)
+                    </Button>
+
                     <div style={{ display: "flex" }}>
                         <div>
                             <label>Master Volume</label>
@@ -120,4 +146,13 @@ function HitHat() {
     );
 }
 
-export default HitHat;
+const mapDispatchToProps = (dispatch) => ({
+    addHatFavorite: (synthParams) => dispatch(addHatFavorite(synthParams)),
+    removeHatFavorite: (synthParams) => dispatch(removeHatFavorite(synthParams)),
+});
+
+const mapStateToProps = (state) => ({
+    favorites: state.hat,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HitHat);

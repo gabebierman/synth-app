@@ -59,7 +59,7 @@ function App() {
             <SingleVoiceDisplay></SingleVoiceDisplay>
             <Kick></Kick>
             <HitHat></HitHat>
-            {/* <Snare></Snare> */}
+            <Snare></Snare>
         </>
     );
 }

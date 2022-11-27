@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import * as tone from "tone";
+import { connect } from "react-redux";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
 import SequencerDisplay from "../shared/components/Sequencer Display/SequencerDisplay";
@@ -9,10 +10,17 @@ import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
 import { Button } from "@mui/material";
-import ReverbDisplay from "../shared/components/FX Displays/ReverbDisplay";
-import reverb from "../shared/functions/fx/Reverb";
+import {
+    addSynthFavorite,
+    removeSynthFavorite,
+} from "../shared/redux/slices/synthFavoriteSlice";
 
-function SingleVoiceDisplay() {
+function SingleVoiceDisplay({
+    addSynthFavorite,
+    removeSynthFavorite,
+    favorites,
+    synthParams,
+}) {
     const [attack, setAttack] = useState(0);
     const [decay, setDecay] = useState(0);
     const [sustain, setSustain] = useState(0.001);
@@ -26,9 +34,6 @@ function SingleVoiceDisplay() {
     const [delayFeedback, setDelayFeedback] = useState(0.001);
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
-    const [verbDecay, setVerbDecay] = useState(0);
-    const [verbDelay, setVerbDelay] = useState(0);
-    const [verbWet, setVerbWet] = useState(0);
     const [mute, setMute] = useState(false);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
@@ -54,6 +59,30 @@ function SingleVoiceDisplay() {
             <div style={{ display: "flex" }}>
                 <div>
                     <div>Synthesizer</div>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            addSynthFavorite({
+                                attack,
+                                decay,
+                                sustain,
+                                release,
+                                osc,
+                                distortionAmount,
+                                distortionWet,
+                                chanVol,
+                                delayDelayTime,
+                                delayFeedback,
+                                delayMaxDelay,
+                                delayWet,
+                            });
+                            console.log(favorites);
+                        }}
+                    >
+                        Add channel to favorites
+                        <br></br>
+                        (does not save sequences)
+                    </Button>
                     <div style={{ display: "flex" }}>
                         <div>
                             <label>Master Volume</label>
@@ -129,4 +158,13 @@ function SingleVoiceDisplay() {
     );
 }
 
-export default SingleVoiceDisplay;
+const mapDispatchToProps = (dispatch) => ({
+    addSynthFavorite: (synthParams) => dispatch(addSynthFavorite(synthParams)),
+    removeSynthFavorite: (synthParams) => dispatch(removeSynthFavorite(synthParams)),
+});
+
+const mapStateToProps = (state) => ({
+    favorites: state.synth,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleVoiceDisplay);

@@ -9,8 +9,13 @@ import { Button } from "@mui/material";
 import NoiseSynthFilter from "../shared/functions/synths/NoiseSynthFilter";
 import NoiseSynthFilterDisplay from "../shared/components/Synth Displays/NoiseSynthFilterDisplay";
 import SnareSequencerDisplay from "../shared/components/Sequencer Display/SnareSequencerDisplay";
+import { connect } from "react-redux";
+import {
+    addSnareFavorite,
+    removeSnareFavorite,
+} from "../shared/redux/slices/snareFavoriteSlice";
 
-function Snare() {
+function Snare({ addSnareFavorite, removeSnareFavorite, favorites }) {
     const [attack, setAttack] = useState(0.001);
     const [decay, setDecay] = useState(0.13);
     const [sustain, setSustain] = useState(0);
@@ -46,6 +51,30 @@ function Snare() {
             <div style={{ display: "flex" }}>
                 <div>
                     <div>Snare</div>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            addSnareFavorite({
+                                attack,
+                                decay,
+                                sustain,
+                                release,
+                                distortionAmount,
+                                distortionWet,
+                                chanVol,
+                                delayDelayTime,
+                                delayFeedback,
+                                delayMaxDelay,
+                                delayWet,
+                            });
+                            console.log(favorites);
+                        }}
+                    >
+                        Add channel to favorites
+                        <br></br>
+                        (does not save sequences)
+                    </Button>
+
                     <div style={{ display: "flex" }}>
                         <div>
                             <label>Master Volume</label>
@@ -119,4 +148,13 @@ function Snare() {
     );
 }
 
-export default Snare;
+const mapDispatchToProps = (dispatch) => ({
+    addSnareFavorite: (synthParams) => dispatch(addSnareFavorite(synthParams)),
+    removeSnareFavorite: (synthParams) => dispatch(removeSnareFavorite(synthParams)),
+});
+
+const mapStateToProps = (state) => ({
+    favorites: state.snare,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Snare);

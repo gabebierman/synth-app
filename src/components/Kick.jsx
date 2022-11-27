@@ -9,8 +9,10 @@ import { Button } from "@mui/material";
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import membraneSynth from "../shared/functions/synths/MembraneSynth";
+import { addKickFavorite, removeKickFavorite } from "../shared/redux/slices/kickFavoriteSlice";
+import { connect } from "react-redux";
 
-function Kick() {
+function Kick({ addKickFavorite, removeKickFavorite, favorites }) {
     const [attack, setAttack] = useState(0.001);
     const [decay, setDecay] = useState(0.4);
     const [sustain, setSustain] = useState(0.01);
@@ -48,6 +50,30 @@ function Kick() {
             <div style={{ display: "flex" }}>
                 <div>
                     <div>Kick</div>
+                    <Button
+                        variant="contained"
+                        onClick={() => {
+                            addKickFavorite({
+                                attack,
+                                decay,
+                                sustain,
+                                release,
+                                distortionAmount,
+                                distortionWet,
+                                chanVol,
+                                delayDelayTime,
+                                delayFeedback,
+                                delayMaxDelay,
+                                delayWet,
+                            });
+                            console.log(favorites);
+                        }}
+                    >
+                        Add channel to favorites
+                        <br></br>
+                        (does not save sequences)
+                    </Button>
+
                     <div style={{ display: "flex" }}>
                         <div>
                             <label>Master Volume</label>
@@ -123,4 +149,13 @@ function Kick() {
     );
 }
 
-export default Kick;
+const mapDispatchToProps = (dispatch) => ({
+    addKickFavorite: (synthParams) => dispatch(addKickFavorite(synthParams)),
+    removeKickFavorite: (synthParams) => dispatch(removeKickFavorite(synthParams)),
+});
+
+const mapStateToProps = (state) => ({
+    favorites: state.kick,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Kick);
