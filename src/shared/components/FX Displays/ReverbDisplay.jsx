@@ -1,39 +1,56 @@
 import React, { useState } from "react";
-import reverb from "../../functions/fx/Reverb";
+import { Knob } from "primereact/knob";
 
-function ReverbDisplay({ setVerbDecay, setPredelay, setWet }) {
+function ReverbDisplay({
+    setVerbDecay,
+    setVerbDelay,
+    setVerbWet,
+    verbDecay,
+    verbDelay,
+    verbWet,
+}) {
     return (
-        <>
-            <div>Reverb Display</div>
-            <label htmlFor="decay">decay</label>
-            <input
-                type="range"
-                id="decay"
-                min="0"
-                max="5"
-                step=".1"
-                onChange={(e) => setVerbDecay(e.target.value)}
-            ></input>
-            <label htmlFor="predelay">PreDelay</label>
-            <input
-                type="range"
-                id="predelay"
-                min="0"
-                max="5"
-                step=".1"
-                onChange={(e) => setPredelay(e.target.value)}
-            ></input>
-
-            <label htmlFor="wet">Wet</label>
-            <input
-                type="range"
-                id="wet"
-                min=".001"
-                max=".999"
-                step=".01"
-                onChange={(e) => setWet(e.target.value)}
-            ></input>
-        </>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+            <div>Reverb</div>
+            <div style={{ display: "flex" }}>
+                <div>
+                    <label htmlFor="decay">Decay</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0}
+                        max={5}
+                        step={0.25}
+                        value={verbDecay}
+                        onChange={(e) => setVerbDecay(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="delay">Pre Delay</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0}
+                        max={5}
+                        step={0.25}
+                        value={verbDelay}
+                        onChange={(e) => setVerbDelay(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="wet">Wet</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0.001}
+                        max={0.999}
+                        step={0.05}
+                        value={verbWet}
+                        onChange={(e) => setVerbWet(e.value)}
+                    ></Knob>
+                </div>
+            </div>
+        </div>
     );
 }
 

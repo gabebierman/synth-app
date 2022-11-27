@@ -6,11 +6,12 @@ import * as tone from "tone";
  * @param wet .001 - .999
  */
 
-export default function reverb({ decay, predelay, wet }) {
+export default async function reverb({ verbDecay, verbDelay, verbWet }) {
     const output = new tone.Reverb({
-        decay: decay,
-        preDelay: predelay,
-        wet: wet,
+        decay: verbDecay,
+        preDelay: verbDelay,
+        wet: verbWet,
     });
+    await reverb().generate;
     return output;
 }

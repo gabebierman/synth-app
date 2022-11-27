@@ -9,9 +9,10 @@ import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
 import { Button } from "@mui/material";
+import ReverbDisplay from "../shared/components/FX Displays/ReverbDisplay";
+import reverb from "../shared/functions/fx/Reverb";
 
 function SingleVoiceDisplay() {
-    const [detune, setDetune] = useState(50);
     const [attack, setAttack] = useState(0);
     const [decay, setDecay] = useState(0);
     const [sustain, setSustain] = useState(0.001);
@@ -25,20 +26,23 @@ function SingleVoiceDisplay() {
     const [delayFeedback, setDelayFeedback] = useState(0);
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
+    const [verbDecay, setVerbDecay] = useState(0);
+    const [verbDelay, setVerbDelay] = useState(0);
+    const [verbWet, setVerbWet] = useState(0);
     const [mute, setMute] = useState(false);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
+    const reverbModule = reverb({ verbDecay, verbDelay, verbWet }).connect(chan.input);
     const delayModule = delay({
         delayDelayTime,
         delayFeedback,
         delayMaxDelay,
         delayWet,
-    }).connect(chan.input);
+    }).connect(reverbModule.input);
     const distortionModule = distortion({ distortionAmount, distortionWet }).connect(
         delayModule.input
     );
     const synthModule = monoSynth({
-        detune,
         attack,
         decay,
         sustain,
@@ -89,7 +93,6 @@ function SingleVoiceDisplay() {
                         )}
                     </div>
                     <MonoSynthDisplay
-                        setDetune={setDetune}
                         setAttack={setAttack}
                         setDecay={setDecay}
                         setSustain={setSustain}
@@ -119,6 +122,14 @@ function SingleVoiceDisplay() {
                             delayWet={delayWet}
                             setDelayWet={setDelayWet}
                         ></DelayDisplay>
+                        <ReverbDisplay
+                            verbDecay={verbDecay}
+                            setVerbDecay={setVerbDecay}
+                            verbDelay={verbDelay}
+                            setVerbDelay={setVerbDelay}
+                            verbWet={verbWet}
+                            setVerbWet={setVerbWet}
+                        ></ReverbDisplay>
                     </div>
                 </div>
                 <SequencerDisplay synth={synthModule}></SequencerDisplay>

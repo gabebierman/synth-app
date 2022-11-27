@@ -13,7 +13,7 @@ function DelayDisplay({
 }) {
     return (
         <div style={{ display: "flex", flexDirection: "column" }}>
-            <div>Display</div>
+            <div>Delay</div>
             <div style={{ display: "flex" }}>
                 <div>
                     <label htmlFor="time">Delay Time</label>
