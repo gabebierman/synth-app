@@ -10,7 +10,7 @@ function membraneSynth({ attack, decay, sustain, release, pDecay }) {
             attackCurve: "exponential",
         },
         octaves: 10,
-        pitchDecay: pDecay,
+        pitchDecay: 0.5,
     });
     return output;
 }

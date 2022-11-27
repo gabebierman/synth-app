@@ -32,13 +32,12 @@ function SingleVoiceDisplay() {
     const [mute, setMute] = useState(false);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
-    const reverbModule = reverb({ verbDecay, verbDelay, verbWet }).connect(chan.input);
     const delayModule = delay({
         delayDelayTime,
         delayFeedback,
         delayMaxDelay,
         delayWet,
-    }).connect(reverbModule.input);
+    }).connect(chan.input);
     const distortionModule = distortion({ distortionAmount, distortionWet }).connect(
         delayModule.input
     );
@@ -122,14 +121,6 @@ function SingleVoiceDisplay() {
                             delayWet={delayWet}
                             setDelayWet={setDelayWet}
                         ></DelayDisplay>
-                        <ReverbDisplay
-                            verbDecay={verbDecay}
-                            setVerbDecay={setVerbDecay}
-                            verbDelay={verbDelay}
-                            setVerbDelay={setVerbDelay}
-                            verbWet={verbWet}
-                            setVerbWet={setVerbWet}
-                        ></ReverbDisplay>
                     </div>
                 </div>
                 <SequencerDisplay synth={synthModule}></SequencerDisplay>

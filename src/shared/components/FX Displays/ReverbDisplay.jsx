@@ -13,7 +13,7 @@ function ReverbDisplay({
         <div style={{ display: "flex", flexDirection: "column" }}>
             <div>Reverb</div>
             <div style={{ display: "flex" }}>
-                <div>
+                {/* <div>
                     <label htmlFor="decay">Decay</label>
                     <Knob
                         textColor={"white"}
@@ -36,7 +36,7 @@ function ReverbDisplay({
                         value={verbDelay}
                         onChange={(e) => setVerbDelay(e.value)}
                     ></Knob>
-                </div>
+                </div> */}
                 <div>
                     <label htmlFor="wet">Wet</label>
                     <Knob

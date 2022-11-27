@@ -36,7 +36,6 @@ const Sequencer = ({ synth, setOctave, octave }) => {
                 pattern.map((row, noteIndex) => {
                     if (row[col]) {
                         synth.triggerAttackRelease(notes[noteIndex], "8n", time);
-                        console.log(notes[noteIndex], noteIndex);
                     }
                 });
             },
