@@ -1,6 +1,5 @@
-import { ThemeProvider as ThemeWrapper } from "@emotion/react";
-import theme from "./Theme";
+import { ThemeProvider } from "@mui/material/styles";
 
 export const ThemeProvider = (props) => {
-    return <ThemeWrapper theme={theme}>{props.children}</ThemeWrapper>;
+    return <ThemeProvider theme={theme}>{props.children}</ThemeProvider>;
 };

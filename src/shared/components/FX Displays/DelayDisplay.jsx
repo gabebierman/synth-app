@@ -1,4 +1,5 @@
 import React from "react";
+import { Knob } from "primereact/knob";
 
 function DelayDisplay({
     delayDelayTime,
@@ -11,49 +12,58 @@ function DelayDisplay({
     setDelayWet,
 }) {
     return (
-        <>
+        <div style={{ display: "flex", flexDirection: "column" }}>
             <div>Display</div>
-            <label htmlFor="time">Delay Time</label>
-            <input
-                type="range"
-                id="time"
-                min="0"
-                max="2"
-                step=".1"
-                value={delayDelayTime}
-                onChange={(e) => setDelayDelayTime(e.target.value)}
-            ></input>
-            <label htmlFor="feedback">Feedback</label>
-            <input
-                type="range"
-                id="feedback"
-                min=".001"
-                max=".999"
-                step=".01"
-                value={delayFeedback}
-                onChange={(e) => setDelayFeedback(e.target.value)}
-            ></input>
-            <label htmlFor="maxdelay">Max Delay</label>
-            <input
-                type="range"
-                id="wet"
-                min="1"
-                max="180"
-                step="1"
-                value={delayMaxDelay}
-                onChange={(e) => setDelayMaxDelay(e.target.value)}
-            ></input>
-            <label htmlFor="wet">Wet</label>
-            <input
-                type="range"
-                id="wet"
-                min=".001"
-                max=".999"
-                step=".01"
-                value={delayWet}
-                onChange={(e) => setDelayWet(e.target.value)}
-            ></input>
-        </>
+            <div style={{ display: "flex" }}>
+                <div>
+                    <label htmlFor="time">Delay Time</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0}
+                        max={2}
+                        step={0.1}
+                        value={delayDelayTime}
+                        onChange={(e) => setDelayDelayTime(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="feedback">Feedback</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0.001}
+                        max={0.999}
+                        step={0.05}
+                        value={delayFeedback}
+                        onChange={(e) => setDelayFeedback(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="maxdelay">Max Delay</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={1}
+                        max={1}
+                        value={delayMaxDelay}
+                        onChange={(e) => setDelayMaxDelay(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="wet">Wet</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0.001}
+                        max={0.998}
+                        step={0.05}
+                        value={delayWet}
+                        onChange={(e) => setDelayWet(e.value)}
+                    ></Knob>
+                </div>
+            </div>
+        </div>
     );
 }
 

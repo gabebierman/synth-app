@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
+import { theme } from "../themes/Themes";
 
-export const Square = styled("div")(({ active, selected, lightTheme, theme }) => ({
+export const Square = styled("div")(({ active, selected, theme }) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     width: 25,
     height: 25,
-    backgroundColor: selected ? lightTheme.primary.value : "696969",
-    border: active ? "1px solid #999" : "1px solid #eee",
+    backgroundColor: selected ? theme.palette.primary.main : "696969",
+    border: active ? "1px solid #eeffcc" : "1px solid #89a257",
 }));

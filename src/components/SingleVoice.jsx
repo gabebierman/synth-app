@@ -11,6 +11,7 @@ import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
+import { Button } from "@mui/material";
 
 function SingleVoiceDisplay() {
     const [detune, setDetune] = useState(50);
@@ -22,25 +23,20 @@ function SingleVoiceDisplay() {
     const [osc, setOsc] = useState("sine");
     const [distortionAmount, setDistortionAmount] = useState(0);
     const [distortionWet, setDistortionWet] = useState(0);
-    const [chorusDelayTime, setChorusDelayTime] = useState(0);
-    const [chorusWet, setChorusWet] = useState(0);
     const [chanVol, setChanVol] = useState(0);
     const [delayDelayTime, setDelayDelayTime] = useState(1);
     const [delayFeedback, setDelayFeedback] = useState(0);
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
+    const [mute, setMute] = useState(false);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
-    const chorusModule = chorus({
-        chorusDelayTime,
-        chorusWet,
-    }).connect(chan.input);
     const delayModule = delay({
         delayDelayTime,
         delayFeedback,
         delayMaxDelay,
         delayWet,
-    }).connect(chorusModule.input);
+    }).connect(chan.input);
     const distortionModule = distortion({ distortionAmount, distortionWet }).connect(
         delayModule.input
     );
@@ -55,58 +51,81 @@ function SingleVoiceDisplay() {
     }).connect(distortionModule.input);
     return (
         <>
-            <div style={{ border: "1px solid black" }}>
-                <div>SingleVoiceDisplay</div>
-                <label>chan vol</label>
-                <Knob
-                    min={-30}
-                    max={30}
-                    value={chanVol}
-                    textColor={"white"}
-                    onChange={(e) => setChanVol(e.value)}
-                ></Knob>
-                <label htmlFor="mute">Mute</label>
-                <button id="mue" onClick={() => setChanVol(-1000)}>
-                    mute
-                </button>
-                <MonoSynthDisplay
-                    setDetune={setDetune}
-                    setAttack={setAttack}
-                    setDecay={setDecay}
-                    setSustain={setSustain}
-                    setRelease={setRelease}
-                    setPort={setPort}
-                    setOsc={setOsc}
-                    synth={synthModule}
-                    attack={attack}
-                    decay={decay}
-                    sustain={sustain}
-                    release={release}
-                ></MonoSynthDisplay>
-                <DistortionDisplay
-                    setDistortionAmount={setDistortionAmount}
-                    setDistortionWet={setDistortionWet}
-                    distortionAmount={distortionAmount}
-                    distortionWet={distortionWet}
-                ></DistortionDisplay>
-                <ChorusDisplay
-                    setChorusDelayTime={setChorusDelayTime}
-                    setChorusWet={setChorusWet}
-                    chorusDelayTime={chorusDelayTime}
-                    chorusWet={chorusWet}
-                ></ChorusDisplay>
-                <DelayDisplay
-                    delayDelayTime={delayDelayTime}
-                    setDelayDelayTime={setDelayDelayTime}
-                    delayFeedback={delayFeedback}
-                    setDelayFeedback={setDelayFeedback}
-                    delayMaxDelay={delayMaxDelay}
-                    setDelayMaxDelay={setDelayMaxDelay}
-                    delayWet={delayWet}
-                    setDelayWet={setDelayWet}
-                ></DelayDisplay>
+            <div style={{ display: "flex" }}>
+                <div>
+                    <div>Synthesizer</div>
+                    <div style={{ display: "flex" }}>
+                        <div>
+                            <label>Master Volume</label>
+                            <Knob
+                                min={-30}
+                                max={30}
+                                size={75}
+                                value={chanVol}
+                                textColor={"white"}
+                                onChange={(e) => setChanVol(e.value)}
+                            ></Knob>
+                        </div>
+                        {!mute && (
+                            <Button
+                                variant="outlined"
+                                color="error"
+                                id="mute"
+                                onClick={() => (
+                                    setChanVol(-1000), setMute((prevState) => !prevState)
+                                )}
+                            >
+                                mute
+                            </Button>
+                        )}
+                        {mute && (
+                            <Button
+                                variant="contained"
+                                color="error"
+                                id="mute"
+                                onClick={() => (
+                                    setChanVol(0), setMute((prevState) => !prevState)
+                                )}
+                            >
+                                unmute
+                            </Button>
+                        )}
+                    </div>
+                    <MonoSynthDisplay
+                        setDetune={setDetune}
+                        setAttack={setAttack}
+                        setDecay={setDecay}
+                        setSustain={setSustain}
+                        setRelease={setRelease}
+                        setPort={setPort}
+                        setOsc={setOsc}
+                        synth={synthModule}
+                        attack={attack}
+                        decay={decay}
+                        sustain={sustain}
+                        release={release}
+                    ></MonoSynthDisplay>
+                    <div style={{ display: "flex" }}>
+                        <DistortionDisplay
+                            setDistortionAmount={setDistortionAmount}
+                            setDistortionWet={setDistortionWet}
+                            distortionAmount={distortionAmount}
+                            distortionWet={distortionWet}
+                        ></DistortionDisplay>
+                        <DelayDisplay
+                            delayDelayTime={delayDelayTime}
+                            setDelayDelayTime={setDelayDelayTime}
+                            delayFeedback={delayFeedback}
+                            setDelayFeedback={setDelayFeedback}
+                            delayMaxDelay={delayMaxDelay}
+                            setDelayMaxDelay={setDelayMaxDelay}
+                            delayWet={delayWet}
+                            setDelayWet={setDelayWet}
+                        ></DelayDisplay>
+                    </div>
+                </div>
+                <SequencerDisplay synth={synthModule}></SequencerDisplay>
             </div>
-            <SequencerDisplay synth={synthModule}></SequencerDisplay>
         </>
     );
 }

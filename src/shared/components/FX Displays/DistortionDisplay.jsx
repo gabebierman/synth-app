@@ -1,4 +1,5 @@
 import React from "react";
+import { Knob } from "primereact/knob";
 
 function DistortionDisplay({
     setDistortionAmount,
@@ -7,29 +8,35 @@ function DistortionDisplay({
     distortionWet,
 }) {
     return (
-        <>
-            <div>DistortionDisplay</div>
-            <label htmlFor="amount">Distortion Amount</label>
-            <input
-                type="range"
-                id="amount"
-                min="0"
-                max="10"
-                step="1"
-                value={distortionAmount}
-                onChange={(e) => setDistortionAmount(e.target.value)}
-            ></input>
-            <label htmlFor="wet">Wet</label>
-            <input
-                type="range"
-                id="wet"
-                min=".001"
-                max=".999"
-                step=".01"
-                value={distortionWet}
-                onChange={(e) => setDistortionWet(e.target.value)}
-            ></input>
-        </>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+            <div>Distortion</div>
+            <div style={{ display: "flex" }}>
+                <div>
+                    <label htmlFor="amount">Amount</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0}
+                        max={5}
+                        step={0.25}
+                        value={distortionAmount}
+                        onChange={(e) => setDistortionAmount(e.value)}
+                    ></Knob>
+                </div>
+                <div>
+                    <label htmlFor="wet">Wet</label>
+                    <Knob
+                        textColor={"white"}
+                        size={75}
+                        min={0.001}
+                        max={0.999}
+                        step={0.05}
+                        value={distortionWet}
+                        onChange={(e) => setDistortionWet(e.value)}
+                    ></Knob>
+                </div>
+            </div>
+        </div>
     );
 }
 

@@ -7,11 +7,17 @@ import store from "../src/shared/redux/store";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@emotion/react";
 import { theme } from "./shared/themes/Themes";
+import CssBaseline from "@mui/material/CssBaseline";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ThemeProvider theme={theme}>
         <Provider store={store}>
+            <CssBaseline />
             <App />
         </Provider>
     </ThemeProvider>

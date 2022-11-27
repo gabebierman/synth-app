@@ -1,16 +1,17 @@
 import React from "react";
-
-//possible that these need to be defined am/fm/fat osc types, need to look into base osc types with wifi
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 
 function MonoSynthOscSelect({ setOsc }) {
     return (
         <>
-            <select id="osc" onChange={(e) => setOsc(e.target.value)}>
-                <option value={"sine"}>Sine</option>
-                <option value={"square"}>Square</option>
-                <option value={"sawtooth"}>Sawtooth</option>
-                <option value={"triangle"}>Tirangle</option>
-            </select>
+            <Select defaultValue="sine" id="osc" onChange={(e) => setOsc(e.target.value)}>
+                <MenuItem value={"sine"}>Sine</MenuItem>
+                <MenuItem value={"square"}>Square</MenuItem>
+                <MenuItem value={"sawtooth"}>Sawtooth</MenuItem>
+                <MenuItem value={"triangle"}>Tirangle</MenuItem>
+            </Select>
         </>
     );
 }

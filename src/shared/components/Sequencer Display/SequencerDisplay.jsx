@@ -3,6 +3,9 @@ import { connect, useSelector } from "react-redux";
 import * as tone from "tone";
 import { setOctave } from "../../redux/slices/octaveSlice";
 import { Square } from "../../styled/Sqaure";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
 
 const Sequencer = ({ synth, setOctave, octave }) => {
     const scale = useSelector((state) => state.scale);
@@ -41,7 +44,7 @@ const Sequencer = ({ synth, setOctave, octave }) => {
             "8n"
         ).start(0);
         return () => loop.dispose();
-    }, [pattern, synth, scale]);
+    }, [pattern, synth, scale, octave]);
 
     // Update pattern
     function setPattern({ x, y, value }) {
@@ -50,25 +53,33 @@ const Sequencer = ({ synth, setOctave, octave }) => {
         updatePattern(patternCopy);
     }
     return (
-        <div>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <label htmlFor="octave">Choose Octave</label>
-            <select id="octave" value={octave} onChange={(e) => setOctave(e.target.value)}>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
-            {pattern.map((row, y) => (
-                <div key={y} style={{ display: "flex", justifyContent: "center" }}>
-                    {row.map((value, x) => (
-                        <Square
-                            key={x}
-                            active={activeColumn === x}
-                            selected={value}
-                            onClick={() => setPattern({ x, y, value })}
-                        />
-                    ))}
-                </div>
-            ))}
+            <Select
+                style={{ maxWidth: "100px" }}
+                defaultValue="2"
+                id="octave"
+                value={octave}
+                onChange={(e) => setOctave(e.target.value)}
+            >
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+            </Select>
+            <div>
+                {pattern.map((row, y) => (
+                    <div key={y} style={{ display: "flex", justifyContent: "center" }}>
+                        {row.map((value, x) => (
+                            <Square
+                                key={x}
+                                active={activeColumn === x}
+                                selected={value}
+                                onClick={() => setPattern({ x, y, value })}
+                            />
+                        ))}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
