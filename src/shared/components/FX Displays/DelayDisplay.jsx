@@ -45,7 +45,7 @@ function DelayDisplay({
                         textColor={"white"}
                         size={75}
                         min={1}
-                        max={1}
+                        max={10}
                         value={delayMaxDelay}
                         onChange={(e) => setDelayMaxDelay(e.value)}
                     ></Knob>

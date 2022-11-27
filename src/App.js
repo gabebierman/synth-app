@@ -13,6 +13,7 @@ import ScaleSelectDisplay from "./shared/components/Select Displays/ScaleSelectD
 import Kick from "./components/Kick";
 import HitHat from "./components/HiHat";
 import { current } from "@reduxjs/toolkit";
+import Snare from "./components/Snare";
 
 function App() {
     const [tempo, setTempo] = useState(144);
@@ -58,6 +59,7 @@ function App() {
             <SingleVoiceDisplay></SingleVoiceDisplay>
             <Kick></Kick>
             <HitHat></HitHat>
+            {/* <Snare></Snare> */}
         </>
     );
 }

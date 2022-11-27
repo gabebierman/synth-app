@@ -1,34 +1,27 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import * as tone from "tone";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
-import SequencerDisplay from "../shared/components/Sequencer Display/SequencerDisplay";
-import MonoSynthDisplay from "../shared/components/Synth Displays/MonoSynthDisplay";
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
-import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
 import { Button } from "@mui/material";
-import ReverbDisplay from "../shared/components/FX Displays/ReverbDisplay";
-import reverb from "../shared/functions/fx/Reverb";
+import NoiseSynthFilter from "../shared/functions/synths/NoiseSynthFilter";
+import NoiseSynthFilterDisplay from "../shared/components/Synth Displays/NoiseSynthFilterDisplay";
+import SnareSequencerDisplay from "../shared/components/Sequencer Display/SnareSequencerDisplay";
 
-function SingleVoiceDisplay() {
-    const [attack, setAttack] = useState(0);
-    const [decay, setDecay] = useState(0);
-    const [sustain, setSustain] = useState(0.001);
-    const [release, setRelease] = useState(0);
-    const [port, setPort] = useState(0);
-    const [osc, setOsc] = useState("sine");
+function Snare() {
+    const [attack, setAttack] = useState(0.001);
+    const [decay, setDecay] = useState(0.13);
+    const [sustain, setSustain] = useState(0);
+    const [release, setRelease] = useState(0.03);
     const [distortionAmount, setDistortionAmount] = useState(0);
     const [distortionWet, setDistortionWet] = useState(0);
     const [chanVol, setChanVol] = useState(0);
     const [delayDelayTime, setDelayDelayTime] = useState(1);
-    const [delayFeedback, setDelayFeedback] = useState(0.001);
+    const [delayFeedback, setDelayFeedback] = useState(0);
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
-    const [verbDecay, setVerbDecay] = useState(0);
-    const [verbDelay, setVerbDelay] = useState(0);
-    const [verbWet, setVerbWet] = useState(0);
     const [mute, setMute] = useState(false);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
@@ -41,19 +34,18 @@ function SingleVoiceDisplay() {
     const distortionModule = distortion({ distortionAmount, distortionWet }).connect(
         delayModule.input
     );
-    const synthModule = monoSynth({
+    const synthModule = NoiseSynthFilter({
         attack,
         decay,
         sustain,
         release,
-        port,
-        osc,
     }).connect(distortionModule.input);
+
     return (
         <>
             <div style={{ display: "flex" }}>
                 <div>
-                    <div>Synthesizer</div>
+                    <div>Snare</div>
                     <div style={{ display: "flex" }}>
                         <div>
                             <label>Master Volume</label>
@@ -91,19 +83,17 @@ function SingleVoiceDisplay() {
                             </Button>
                         )}
                     </div>
-                    <MonoSynthDisplay
+                    <NoiseSynthFilterDisplay
                         setAttack={setAttack}
                         setDecay={setDecay}
                         setSustain={setSustain}
                         setRelease={setRelease}
-                        setPort={setPort}
-                        setOsc={setOsc}
                         synth={synthModule}
                         attack={attack}
                         decay={decay}
                         sustain={sustain}
                         release={release}
-                    ></MonoSynthDisplay>
+                    ></NoiseSynthFilterDisplay>
                     <div style={{ display: "flex" }}>
                         <DistortionDisplay
                             setDistortionAmount={setDistortionAmount}
@@ -123,10 +113,10 @@ function SingleVoiceDisplay() {
                         ></DelayDisplay>
                     </div>
                 </div>
-                <SequencerDisplay synth={synthModule}></SequencerDisplay>
+                <SnareSequencerDisplay synth={synthModule}></SnareSequencerDisplay>
             </div>
         </>
     );
 }
 
-export default SingleVoiceDisplay;
+export default Snare;
