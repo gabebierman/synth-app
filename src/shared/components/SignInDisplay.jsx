@@ -4,7 +4,7 @@ import axios from "axios";
 import { connect, useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import { Nav } from "../styled/Nav";
-import { useFavoritesContext } from "../context/FavoritesContext";
+import { useSongContext } from "../context/SongContext";
 import { useUserContext } from "../context/UserContext";
 // import { setUser } from "../redux/slices/userSlice";
 
@@ -12,7 +12,7 @@ function SignInDisplay() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const { setUser } = useUserContext();
-    const { setFavorites } = useFavoritesContext();
+    const { setSong } = useSongContext();
     const {
         data: resObject,
         error: reqError,
@@ -25,7 +25,7 @@ function SignInDisplay() {
         onSuccess: (res) => {
             if (res.success) {
                 setUser(res.data.username);
-                setFavorites(res.data.favorites);
+                setSong(res.data.favorites);
                 console.log("user", res.data.username);
             }
             return res;

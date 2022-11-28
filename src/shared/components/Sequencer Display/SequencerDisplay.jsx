@@ -7,7 +7,7 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
-const Sequencer = ({ synth, setOctave, octave }) => {
+const Sequencer = ({ synth, setOctave, octave, setPatternState }) => {
     const scale = useSelector((state) => state.scale);
     const initialPattern = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -50,6 +50,7 @@ const Sequencer = ({ synth, setOctave, octave }) => {
         const patternCopy = [...pattern];
         patternCopy[y][x] = +!value;
         updatePattern(patternCopy);
+        setPatternState(pattern);
     }
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>

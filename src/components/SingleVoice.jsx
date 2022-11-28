@@ -10,17 +10,9 @@ import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
 import { Button } from "@mui/material";
-import {
-    addSynthFavorite,
-    removeSynthFavorite,
-} from "../shared/redux/slices/synthFavoriteSlice";
+import { useSynthContext } from "../shared/context/SynthContext";
 
-function SingleVoiceDisplay({
-    addSynthFavorite,
-    removeSynthFavorite,
-    favorites,
-    synthParams,
-}) {
+function SingleVoiceDisplay() {
     const [attack, setAttack] = useState(0);
     const [decay, setDecay] = useState(0);
     const [sustain, setSustain] = useState(0.001);
@@ -35,6 +27,8 @@ function SingleVoiceDisplay({
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
     const [mute, setMute] = useState(false);
+    const [pattern, setPattern] = useState();
+    const { synths, addSynth, removeSynth } = useSynthContext();
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const delayModule = delay({
@@ -62,7 +56,7 @@ function SingleVoiceDisplay({
                     <Button
                         variant="contained"
                         onClick={() => {
-                            addSynthFavorite({
+                            addSynth({
                                 attack,
                                 decay,
                                 sustain,
@@ -75,8 +69,9 @@ function SingleVoiceDisplay({
                                 delayFeedback,
                                 delayMaxDelay,
                                 delayWet,
+                                pattern,
                             });
-                            console.log(favorites);
+                            console.log(synths);
                         }}
                     >
                         Add channel to favorites
@@ -152,19 +147,23 @@ function SingleVoiceDisplay({
                         ></DelayDisplay>
                     </div>
                 </div>
-                <SequencerDisplay synth={synthModule}></SequencerDisplay>
+                <SequencerDisplay
+                    synth={synthModule}
+                    pattern={pattern}
+                    setPatternState={setPattern}
+                ></SequencerDisplay>
             </div>
         </>
     );
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addSynthFavorite: (synthParams) => dispatch(addSynthFavorite(synthParams)),
-    removeSynthFavorite: (synthParams) => dispatch(removeSynthFavorite(synthParams)),
+    // addSynthFavorite: (synthParams) => dispatch(addSynthFavorite(synthParams)),
+    // removeSynthFavorite: (synthParams) => dispatch(removeSynthFavorite(synthParams)),
 });
 
 const mapStateToProps = (state) => ({
-    favorites: state.synth,
+    // favorites: state.synth,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleVoiceDisplay);
