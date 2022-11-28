@@ -24,12 +24,14 @@ function SignInDisplay() {
         },
         onSuccess: (res) => {
             if (res.success) {
-                setUser(res.data.user);
+                setUser(res.data.username);
                 setFavorites(res.data.favorites);
+                console.log("user", res.data.username);
             }
             return res;
         },
     });
+
     return (
         <>
             <Nav>

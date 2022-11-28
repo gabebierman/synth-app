@@ -3,7 +3,7 @@ const app = express();
 import userRoutes from "./server/routes/users.routes";
 import mongoose from "mongoose";
 import mongooseConf from "./server/config/database.config";
-const PORT = process.env.PORT || 27017;
+const PORT = process.env.PORT;
 mongooseConf(mongoose);
 
 app.use(express.static(__dirname + "/build"));
