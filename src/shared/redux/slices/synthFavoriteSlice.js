@@ -7,7 +7,7 @@ export const synthFavoriteSlice = createSlice({
         addSynthFavorite: (state, action) => [...state, action.payload],
         removeSynthFavorite: (state, action) =>
             state.filter((val) => val.favorite_synth_id !== action.payload),
-        setSynthFavorite: (state) => [...state, action.payload],
+        setSynthFavorite: (state, action) => [...state, action.payload],
         clearSynthFavorites: () => [],
     },
 });

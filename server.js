@@ -1,15 +1,14 @@
 import express from "express";
-import mysql from "mysql";
-import mysqlQuery from "./server/config/mysql.config";
+const app = express();
+import userRoutes from "./server/routes/users.routes";
 import mongoose from "mongoose";
 import mongooseConf from "./server/config/database.config";
-const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 27017;
 mongooseConf(mongoose);
 
 app.use(express.static(__dirname + "/build"));
 app.use(express.json());
-// app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes);
 // app.use("/api/favorites", favoritesRoutes);
 if (process.env.NODE_ENV === "production") {
     app.enable("trust proxy");

@@ -4,13 +4,15 @@ import axios from "axios";
 import { connect, useSelector } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
 import { Nav } from "../styled/Nav";
-import { setUser } from "../redux/slices/userSlice";
+import { useFavoritesContext } from "../context/FavoritesContext";
+import { useUserContext } from "../context/UserContext";
+// import { setUser } from "../redux/slices/userSlice";
 
-function SignInDisplay({ setSynthFavorites }) {
+function SignInDisplay() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const user = useSelector((state) => state.user);
-    const synthFavorite = useSelector((state) => state.synthFavorites);
+    const { setUser } = useUserContext();
+    const { setFavorites } = useFavoritesContext();
     const {
         data: resObject,
         error: reqError,
@@ -23,7 +25,7 @@ function SignInDisplay({ setSynthFavorites }) {
         onSuccess: (res) => {
             if (res.success) {
                 setUser(res.data.user);
-                setSynthFavorites(res.data.synthFavorite);
+                setFavorites(res.data.favorites);
             }
             return res;
         },
@@ -48,7 +50,6 @@ function SignInDisplay({ setSynthFavorites }) {
                         type="password"
                     />
                     <Button
-                        disabled={username.length < 3 || password.length < 7}
                         onClick={() => {
                             if (username.length > 1 && password.length > 1) {
                                 login({ username, password });
@@ -65,11 +66,10 @@ function SignInDisplay({ setSynthFavorites }) {
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({ setUser: (user) => dispatch(setUser(user)) });
+const mapDispatchToProps = () => ({});
 
 const mapStateToProps = (state) => ({
     user: state.user,
-    synthFavorites: state.synthFavorites,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInDisplay);

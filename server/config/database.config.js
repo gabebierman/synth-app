@@ -24,7 +24,7 @@ export default function mongooseConf(mongoose) {
     });
 
     process.on("SIGINT", gracefulExit).on("SIGTERM", gracefulExit);
-    mongoose.connect(process.env.MONGO_URI, (error) => {
+    mongoose.connect(process.env.ATLAS_URI, (error) => {
         if (error) throw error;
     });
 }

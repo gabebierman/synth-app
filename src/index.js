@@ -12,14 +12,31 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import { UserProvider } from "./shared/context/UserContext";
+import { FavoritesProvider } from "./shared/context/FavoritesContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ThemeProvider theme={theme}>
-        <Provider store={store}>
-            <CssBaseline />
-            <App />
-        </Provider>
+        <QueryClientProvider client={queryClient}>
+            <UserProvider>
+                <FavoritesProvider>
+                    <Provider store={store}>
+                        <CssBaseline />
+                        <App />
+                    </Provider>
+                </FavoritesProvider>
+            </UserProvider>
+        </QueryClientProvider>
     </ThemeProvider>
 );
 
