@@ -21,8 +21,8 @@ export function SynthProvider(props) {
     const { user } = useUserContext();
 
     const { mutate: addSynth } = useMutation({
-        mutationFn: async (gif) => {
-            const { data } = await axios.put("/api/synth/add", { gif });
+        mutationFn: async (synth) => {
+            const { data } = await axios.put("/api/modules/addSynth", { synth });
             return data;
         },
         onSuccess: (res) => {
@@ -35,8 +35,8 @@ export function SynthProvider(props) {
         onError: (err) => console.error(err),
     });
     const { mutate: removeSynth } = useMutation({
-        mutationFn: async (gif_id) => {
-            const { data } = await axios.delete(`/api/synth/delete/${gif_id}`);
+        mutationFn: async (module_id) => {
+            const { data } = await axios.delete(`/api/synth/delete/${module_id}`);
             return data;
         },
         onSuccess: (res) => {
@@ -59,15 +59,15 @@ export function SynthProvider(props) {
     );
 
     const addToState = useCallback(
-        (gif) => {
-            dispatch({ type: ADD_SYNTH, payload: gif });
+        (synth) => {
+            dispatch({ type: ADD_SYNTH, payload: synth });
         },
         [dispatch]
     );
 
     const removeFromState = useCallback(
-        (gif_id) => {
-            dispatch({ type: REMOVE_SYNTH, payload: gif_id });
+        (module_id) => {
+            dispatch({ type: REMOVE_SYNTH, payload: module_id });
         },
         [dispatch]
     );

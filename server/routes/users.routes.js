@@ -1,14 +1,14 @@
 import express from "express";
 import User from "../models/users.model";
-// import validateData from "../middleware/validateUserData.middleware";
+import validateData from "../middleware/user/validateUserData.middleware";
 const router = express.Router();
 
 router.put("/register", async (req, res) => {
     const { username, password } = req.body;
     try {
-        const newUser = new User({ username, password });
+        const newUser = new User({ username: `${username}`, password: `${password}` });
 
-        await newUser.validate();
+        // await newUser.validate();
 
         await newUser.save();
 
@@ -27,8 +27,8 @@ router.post("/login", async (req, res) => {
         const user = await User.findOne({ username: `${username}` }).exec();
         if (!user) return res.send({ data: "invalid Username or password", success: false });
 
-        // const match = await user.verify(password);
-        // if (!match) return res.send({ data: "invalid username or Password", success: false });
+        const match = await user.verify(password);
+        if (!match) return res.send({ data: "invalid username or Password", success: false });
 
         return res.send({ data: user.sanatize(), success: true });
     } catch (err) {

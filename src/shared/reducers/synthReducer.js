@@ -11,7 +11,7 @@ export function synthReducer(state, action) {
             return [...state, action.payload];
 
         case REMOVE_SYNTH:
-            return state.filter((val) => val.synthParams !== action.payload);
+            return state.filter((val) => val.module_id !== action.payload);
 
         case SET_SYNTH:
             return action.payload;

@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
-// import favoriteSchema from "./favorites.model";
 import { Schema, model } from "mongoose";
+import { favoriteSynthSchema } from "./moduleFavorite.model";
 
 const userSchema = new Schema({
     username: {
@@ -13,7 +13,12 @@ const userSchema = new Schema({
     },
     uuid: { type: String, default: () => uuidv4() },
     password: { type: String, minLength: 8, maxLength: 20, required: true },
-    favorites: {},
+    favorites: {
+        synth: { type: [favoriteSynthSchema], default: [] },
+        kick: { default: [] },
+        hat: { default: [] },
+        snare: { default: [] },
+    },
     songs: [],
 });
 

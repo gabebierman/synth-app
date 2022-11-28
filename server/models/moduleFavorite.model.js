@@ -1,6 +1,7 @@
 import { Schema } from "mongoose";
 
 export const favoriteSynthSchema = new Schema({
+    module_id: { type: Number, required: true },
     attack: { type: Number, required: true },
     decay: { type: Number, required: true },
     sustain: { type: Number, required: true },

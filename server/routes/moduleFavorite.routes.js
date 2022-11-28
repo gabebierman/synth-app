@@ -7,9 +7,9 @@ router.put("/addSynth", async (req, res) => {
     const { user_id, ...synth } = req.params;
     try {
         const user = await User.findOne({ _id: user_id }).exec();
-        if (!user) return res.send({ succeess: false, data: "invalid user id" });
-
-        user.favorites.push(synth);
+        console.group(user_id);
+        if (!user) return res.send({ success: false, data: "invalid user id" });
+        user.favorites.synth.push(synth);
         await user.save();
         return res.send({ success: true, data: "sucessfully added" });
     } catch (err) {
@@ -17,14 +17,14 @@ router.put("/addSynth", async (req, res) => {
     }
 });
 
-router.delete("/delete/:gif_id/:user_id", async (req, res) => {
-    const { user_id, gif_id } = req.params;
+router.delete("/deleteSynth/:module_id", async (req, res) => {
+    const { user_id, module_id } = req.params;
     try {
         const user = await User.findOne({ _id: user_id }).exec();
 
         if (!user) return res.send({ success: false, data: "invalid user id" });
 
-        const toRemove = user.favorites.find((gif) => gif.gif_id === gif_id);
+        const toRemove = user.favorites.synth.find((synth) => synth.module_id === module_id);
 
         await toRemove.remove();
 

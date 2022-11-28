@@ -11,6 +11,17 @@ import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
 import { Button } from "@mui/material";
 import { useSynthContext } from "../shared/context/SynthContext";
+import { v4 as uuidv4 } from "uuid";
+
+const initialPattern = [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
 
 function SingleVoiceDisplay() {
     const [attack, setAttack] = useState(0);
@@ -27,8 +38,9 @@ function SingleVoiceDisplay() {
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
     const [mute, setMute] = useState(false);
-    const [pattern, setPattern] = useState();
+    const [pattern, setPattern] = useState(initialPattern);
     const { synths, addSynth, removeSynth } = useSynthContext();
+    const [module_id, setModuleID] = useState(uuidv4());
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const delayModule = delay({
@@ -57,6 +69,7 @@ function SingleVoiceDisplay() {
                         variant="contained"
                         onClick={() => {
                             addSynth({
+                                module_id,
                                 attack,
                                 decay,
                                 sustain,
@@ -71,7 +84,6 @@ function SingleVoiceDisplay() {
                                 delayWet,
                                 pattern,
                             });
-                            console.log(synths);
                         }}
                     >
                         Add channel to favorites
