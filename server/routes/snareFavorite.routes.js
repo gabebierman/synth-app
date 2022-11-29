@@ -2,22 +2,22 @@ import express from "express";
 // import validateGifData from "../middleware/validateGifData";
 // import auth from "../middleware/auth.middleware";
 import {
-    addSynthFavorite,
+    addSnareFavorite,
     getByUser,
-    removeSynthFavorite,
-} from "../models/moduleFavorite.model";
+    removeSnareFavorite,
+} from "../models/snareFavorite.model";
 const router = express.Router();
 
-router.put("/addSynth", async (req, res) => {
+router.put("/addSnare", async (req, res) => {
     console.log(req.body);
-    const synth = { ...req.body, user_id: req.body.user_id };
-    const resObj = await addSynthFavorite(synth);
+    const snare = { ...req.body, user_id: req.body.user_id };
+    const resObj = await addSnareFavorite(snare);
     return res.send(resObj);
 });
 
 router.delete("/delete/:module_id", async (req, res) => {
     const { module_id } = req.params;
-    const resObj = await removeSynthFavorite(req.user.id, module_id);
+    const resObj = await removeSnareFavorite(req.user.id, module_id);
     return res.send(resObj);
 });
 
