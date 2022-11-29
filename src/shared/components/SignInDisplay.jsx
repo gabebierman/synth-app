@@ -25,7 +25,7 @@ function SignInDisplay() {
         onSuccess: (res) => {
             if (res.success) {
                 setUser(res.data);
-                setSong(res.data.favorites);
+                // setSong(res.data.favorites);
                 console.log("user", res.data);
             }
             return res;

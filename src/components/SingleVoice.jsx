@@ -44,6 +44,9 @@ function SingleVoiceDisplay() {
     const { user } = useUserContext();
     const [module_id, setModuleID] = useState(uuidv4());
 
+    const name = "test";
+    const uuid = user?.user.id;
+
     const user_id = user?.id;
     console.log(user_id);
 
@@ -74,7 +77,6 @@ function SingleVoiceDisplay() {
                         variant="contained"
                         onClick={() => {
                             addSynth({
-                                user_id,
                                 module_id,
                                 attack,
                                 decay,
@@ -88,7 +90,9 @@ function SingleVoiceDisplay() {
                                 delayFeedback,
                                 delayMaxDelay,
                                 delayWet,
-                                pattern,
+                                name,
+                                uuid,
+                                // pattern,
                             });
                             console.log(user);
                         }}
