@@ -22,7 +22,7 @@ export function HatProvider(props) {
 
     const { mutate: addHat } = useMutation({
         mutationFn: async (hat) => {
-            const { data } = await axios.put("/api/modulefavorites/addHat", {
+            const { data } = await axios.put("/api/hatfavorites/addHat", {
                 hat,
                 user_id: user.user.id,
             });

@@ -22,7 +22,7 @@ export function SnareProvider(props) {
 
     const { mutate: addSnare } = useMutation({
         mutationFn: async (snare) => {
-            const { data } = await axios.put("/api/modulefavorites/addSnare", {
+            const { data } = await axios.put("/api/snarefavorites/addSnare", {
                 snare,
                 user_id: user.user.id,
             });

@@ -22,7 +22,7 @@ export function SynthProvider(props) {
 
     const { mutate: addSynth } = useMutation({
         mutationFn: async (synth) => {
-            const { data } = await axios.put("/api/modulefavorites/addSynth", {
+            const { data } = await axios.put("/api/synthfavorites/addSynth", {
                 synth,
                 user_id: user.user.id,
             });

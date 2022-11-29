@@ -22,7 +22,7 @@ export function KickProvider(props) {
 
     const { mutate: addKick } = useMutation({
         mutationFn: async (kick) => {
-            const { data } = await axios.put("/api/modulefavorites/addKick", {
+            const { data } = await axios.put("/api/kickfavorites/addKick", {
                 kick,
                 user_id: user.user.id,
             });
