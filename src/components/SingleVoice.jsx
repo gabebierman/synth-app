@@ -12,6 +12,7 @@ import { Knob } from "primereact/knob";
 import { Button } from "@mui/material";
 import { useSynthContext } from "../shared/context/SynthContext";
 import { v4 as uuidv4 } from "uuid";
+import { useUserContext } from "../shared/context/UserContext";
 
 const initialPattern = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -40,7 +41,14 @@ function SingleVoiceDisplay() {
     const [mute, setMute] = useState(false);
     const [pattern, setPattern] = useState(initialPattern);
     const { synths, addSynth, removeSynth } = useSynthContext();
+    const { user } = useUserContext();
     const [module_id, setModuleID] = useState(uuidv4());
+
+    const name = "test";
+    const uuid = user?.user.id;
+
+    const user_id = user?.id;
+    console.log(user_id);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const delayModule = delay({
@@ -82,8 +90,11 @@ function SingleVoiceDisplay() {
                                 delayFeedback,
                                 delayMaxDelay,
                                 delayWet,
-                                pattern,
+                                name,
+                                uuid,
+                                // pattern,
                             });
+                            console.log(user);
                         }}
                     >
                         Add channel to favorites

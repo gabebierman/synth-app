@@ -24,9 +24,9 @@ function SignInDisplay() {
         },
         onSuccess: (res) => {
             if (res.success) {
-                setUser(res.data.username);
-                setSong(res.data.favorites);
-                console.log("user", res.data.username);
+                setUser(res.data);
+                // setSong(res.data.favorites);
+                console.log("user", res.data);
             }
             return res;
         },

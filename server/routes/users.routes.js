@@ -1,39 +1,40 @@
 import express from "express";
-import User from "../models/users.model";
-import validateData from "../middleware/user/validateUserData.middleware";
+import { login, register } from "../models/users.model";
+import { getByUser } from "../models/moduleFavorite.model";
+// import validateData from "../middleware/validateUserData.middleware";
 const router = express.Router();
+import jwt from "jsonwebtoken";
+// import auth from "../middleware/auth.middleware";
 
 router.put("/register", async (req, res) => {
     const { username, password } = req.body;
-    try {
-        const newUser = new User({ username: `${username}`, password: `${password}` });
-
-        // await newUser.validate();
-
-        await newUser.save();
-
-        return res.send({ data: "successfully registered", success: true });
-    } catch (err) {
-        if (err.errors && err.errors.username) {
-            return res.send({ error: err.errors.username.message, success: false });
-        }
-        return res.send({ eror: "something went wrong 🤷‍♂️", success: false });
-    }
+    const resObj = await register(username, password);
+    return res.send(resObj);
 });
 
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    try {
-        const user = await User.findOne({ username: `${username}` }).exec();
-        if (!user) return res.send({ data: "invalid Username or password", success: false });
+    const resObj = await login(username, password);
+    if (!resObj.success) return res.send(resObj);
+    const token = jwt.sign({ user_id: resObj.id }, process.env.SECRET_KEY, {
+        expiresIn: "7d",
+    });
+    res.cookie("auth", token, { httpOnly: true });
+    return res.send({ success: true, data: resObj.data });
+});
 
-        const match = await user.verify(password);
-        if (!match) return res.send({ data: "invalid username or Password", success: false });
+router.get("/logout", (req, res) => {
+    res.clearCookie("auth");
+    return res.send({ success: true, data: "successfully logged out" });
+});
 
-        return res.send({ data: user.sanatize(), success: true });
-    } catch (err) {
-        return res.send({ eror: "something went wrong 🤷‍♂️", success: false });
-    }
+router.get("/verify", async (req, res) => {
+    const resObj = await getByUser(req.user.id);
+    if (!resObj.success) return res.send(resObj);
+    return res.send({
+        success: true,
+        data: { user: { username: req.user.username }, favorites: resObj.data },
+    });
 });
 
 export default router;
