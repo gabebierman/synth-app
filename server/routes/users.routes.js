@@ -1,6 +1,6 @@
 import express from "express";
 import { login, register } from "../models/users.model";
-import { getByUser } from "../models/moduleFavorite.model";
+import { getByUser } from "../models/getByUser.models";
 // import validateData from "../middleware/validateUserData.middleware";
 const router = express.Router();
 import jwt from "jsonwebtoken";

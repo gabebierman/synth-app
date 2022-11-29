@@ -29,16 +29,3 @@ export async function removeSnareFavorite(user_id, module_id) {
         return { error: "Something went wrong 🤷‍♂️", success: false };
     }
 }
-
-export async function getByUser(user_id) {
-    try {
-        const faves = await query(
-            "SELECT * FROM favorite_snare WHERE favorite_snare.uuid = ?",
-            [user_id]
-        );
-        return { data: faves, success: true };
-    } catch (err) {
-        console.error(err);
-        return { error: "Something went wrong 🤷‍♂️", success: false };
-    }
-}

@@ -1,7 +1,7 @@
 import query from "../config/database.config";
 import bcrypt from "bcryptjs";
 import { v4 as uuidv4 } from "uuid";
-import { getByUser } from "./moduleFavorite.model";
+import { getByUser } from "./getByUser.models";
 
 export async function register(username, password) {
     try {
