@@ -77,7 +77,6 @@ function Kick() {
                                 uuid,
                                 // pattern,
                             });
-                            console.log(favorites);
                         }}
                     >
                         Add channel to favorites
