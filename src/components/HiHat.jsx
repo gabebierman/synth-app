@@ -3,17 +3,17 @@ import * as tone from "tone";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
 import DistortionDisplay from "../shared/components/FX Displays/DistortionDisplay";
 import HiHatSeqeuncerDisplay from "../shared/components/Sequencer Display/HiHatSequencerDisplay";
-import MembraneSynthDisplay from "../shared/components/Synth Displays/MembraneSynthDisplay";
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import NoiseSynth from "../shared/functions/synths/NoiseSynth";
 import { Knob } from "primereact/knob";
 import { Button } from "@mui/material";
 import NoiseSynthDisplay from "../shared/components/Synth Displays/NoiseSynthDisplay";
-import { addHatFavorite, removeHatFavorite } from "../shared/redux/slices/hatFavoriteSlice";
-import { connect } from "react-redux";
+import { useHatContext } from "../shared/context/HatContext";
+import { useUserContext } from "../shared/context/UserContext";
+import { v4 as uuidv4 } from "uuid";
 
-function HitHat({ addHatFavorite, removeHatFavorite, favorites }) {
+function Hat() {
     const [attack, setAttack] = useState(0);
     const [decay, setDecay] = useState(0.1);
     const [sustain, setSustain] = useState(0);
@@ -26,6 +26,11 @@ function HitHat({ addHatFavorite, removeHatFavorite, favorites }) {
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
     const [mute, setMute] = useState(false);
+    const { hats, addHat } = useHatContext();
+    const { user } = useUserContext();
+    const [module_id, setModuleID] = useState(uuidv4());
+    const name = "test";
+    const uuid = user?.user.id;
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const delayModule = delay({
@@ -52,11 +57,13 @@ function HitHat({ addHatFavorite, removeHatFavorite, favorites }) {
                     <Button
                         variant="contained"
                         onClick={() => {
-                            addHatFavorite({
+                            addHat({
+                                module_id,
                                 attack,
                                 decay,
                                 sustain,
                                 release,
+                                // osc,
                                 distortionAmount,
                                 distortionWet,
                                 chanVol,
@@ -64,6 +71,9 @@ function HitHat({ addHatFavorite, removeHatFavorite, favorites }) {
                                 delayFeedback,
                                 delayMaxDelay,
                                 delayWet,
+                                name,
+                                uuid,
+                                // pattern,
                             });
                             console.log(favorites);
                         }}
@@ -146,13 +156,4 @@ function HitHat({ addHatFavorite, removeHatFavorite, favorites }) {
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    addHatFavorite: (synthParams) => dispatch(addHatFavorite(synthParams)),
-    removeHatFavorite: (synthParams) => dispatch(removeHatFavorite(synthParams)),
-});
-
-const mapStateToProps = (state) => ({
-    favorites: state.hat,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HitHat);
+export default Hat;

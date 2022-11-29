@@ -9,10 +9,11 @@ import { Button } from "@mui/material";
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import membraneSynth from "../shared/functions/synths/MembraneSynth";
-import { addKickFavorite, removeKickFavorite } from "../shared/redux/slices/kickFavoriteSlice";
-import { connect } from "react-redux";
+import { useKickContext } from "../shared/context/KickContext";
+import { useUserContext } from "../shared/context/UserContext";
+import { v4 as uuidv4 } from "uuid";
 
-function Kick({ addKickFavorite, removeKickFavorite, favorites }) {
+function Kick() {
     const [attack, setAttack] = useState(0.001);
     const [decay, setDecay] = useState(0.4);
     const [sustain, setSustain] = useState(0.01);
@@ -26,6 +27,11 @@ function Kick({ addKickFavorite, removeKickFavorite, favorites }) {
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
     const [mute, setMute] = useState(false);
+    const { kicks, addKick } = useKickContext();
+    const { user } = useUserContext();
+    const [module_id, setModuleID] = useState(uuidv4());
+    const name = "test";
+    const uuid = user?.user.id;
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const delayModule = delay({
@@ -53,11 +59,13 @@ function Kick({ addKickFavorite, removeKickFavorite, favorites }) {
                     <Button
                         variant="contained"
                         onClick={() => {
-                            addKickFavorite({
+                            addKick({
+                                module_id,
                                 attack,
                                 decay,
                                 sustain,
                                 release,
+                                // osc,
                                 distortionAmount,
                                 distortionWet,
                                 chanVol,
@@ -65,6 +73,9 @@ function Kick({ addKickFavorite, removeKickFavorite, favorites }) {
                                 delayFeedback,
                                 delayMaxDelay,
                                 delayWet,
+                                name,
+                                uuid,
+                                // pattern,
                             });
                             console.log(favorites);
                         }}
@@ -149,13 +160,4 @@ function Kick({ addKickFavorite, removeKickFavorite, favorites }) {
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    addKickFavorite: (synthParams) => dispatch(addKickFavorite(synthParams)),
-    removeKickFavorite: (synthParams) => dispatch(removeKickFavorite(synthParams)),
-});
-
-const mapStateToProps = (state) => ({
-    favorites: state.kick,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Kick);
+export default Kick;

@@ -9,13 +9,11 @@ import { Button } from "@mui/material";
 import NoiseSynthFilter from "../shared/functions/synths/NoiseSynthFilter";
 import NoiseSynthFilterDisplay from "../shared/components/Synth Displays/NoiseSynthFilterDisplay";
 import SnareSequencerDisplay from "../shared/components/Sequencer Display/SnareSequencerDisplay";
-import { connect } from "react-redux";
-import {
-    addSnareFavorite,
-    removeSnareFavorite,
-} from "../shared/redux/slices/snareFavoriteSlice";
+import { useSnareContext } from "../shared/context/SnareContext";
+import { useUserContext } from "../shared/context/UserContext";
+import { v4 as uuidv4 } from "uuid";
 
-function Snare({ addSnareFavorite, removeSnareFavorite, favorites }) {
+function Snare() {
     const [attack, setAttack] = useState(0.001);
     const [decay, setDecay] = useState(0.13);
     const [sustain, setSustain] = useState(0);
@@ -28,6 +26,11 @@ function Snare({ addSnareFavorite, removeSnareFavorite, favorites }) {
     const [delayMaxDelay, setDelayMaxDelay] = useState(1);
     const [delayWet, setDelayWet] = useState(0);
     const [mute, setMute] = useState(false);
+    const { snares, addSnare } = useSnareContext();
+    const { user } = useUserContext();
+    const [module_id, setModuleID] = useState(uuidv4());
+    const name = "test";
+    const uuid = user?.user.id;
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const delayModule = delay({
@@ -54,11 +57,13 @@ function Snare({ addSnareFavorite, removeSnareFavorite, favorites }) {
                     <Button
                         variant="contained"
                         onClick={() => {
-                            addSnareFavorite({
+                            addSnare({
+                                module_id,
                                 attack,
                                 decay,
                                 sustain,
                                 release,
+                                // osc,
                                 distortionAmount,
                                 distortionWet,
                                 chanVol,
@@ -66,6 +71,9 @@ function Snare({ addSnareFavorite, removeSnareFavorite, favorites }) {
                                 delayFeedback,
                                 delayMaxDelay,
                                 delayWet,
+                                name,
+                                uuid,
+                                // pattern,
                             });
                             console.log(favorites);
                         }}
@@ -148,13 +156,4 @@ function Snare({ addSnareFavorite, removeSnareFavorite, favorites }) {
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-    addSnareFavorite: (synthParams) => dispatch(addSnareFavorite(synthParams)),
-    removeSnareFavorite: (synthParams) => dispatch(removeSnareFavorite(synthParams)),
-});
-
-const mapStateToProps = (state) => ({
-    favorites: state.snare,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Snare);
+export default Snare;
