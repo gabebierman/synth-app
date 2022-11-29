@@ -15,7 +15,7 @@ import "@fontsource/roboto/700.css";
 import { UserProvider } from "./shared/context/UserContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SongProvider } from "./shared/context/SongContext";
-import { SynthProvider } from "./shared/context/SynthContext";
+import StateProvider from "./shared/context";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -31,12 +31,12 @@ root.render(
         <QueryClientProvider client={queryClient}>
             <UserProvider>
                 <SongProvider>
-                    <SynthProvider>
+                    <StateProvider>
                         <Provider store={store}>
                             <CssBaseline />
                             <App />
                         </Provider>
-                    </SynthProvider>
+                    </StateProvider>
                 </SongProvider>
             </UserProvider>
         </QueryClientProvider>
