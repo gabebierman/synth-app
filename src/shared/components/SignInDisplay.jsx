@@ -6,6 +6,8 @@ import { useMutation } from "@tanstack/react-query";
 import { Nav } from "../styled/Nav";
 import { useSongContext } from "../context/SongContext";
 import { useUserContext } from "../context/UserContext";
+import { NavLink } from "react-router-dom";
+import { MenuLink } from "../styled/MenuLink";
 // import { setUser } from "../redux/slices/userSlice";
 
 function SignInDisplay() {
@@ -63,6 +65,9 @@ function SignInDisplay() {
                 </div>
                 {resObject && resObject.error}
                 {reqError && <>Something went wrong , please try again later</>}
+                <MenuLink to="/sequencer">Sequencer</MenuLink>
+                <MenuLink to="/generative">Generative Synthesis</MenuLink>
+                <MenuLink to="/about">About</MenuLink>
             </Nav>
         </>
     );
