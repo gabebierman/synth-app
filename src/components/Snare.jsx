@@ -82,7 +82,7 @@ function Snare() {
                             justifyContent: "space-between",
                         }}
                     >
-                        <div>Synthesizer</div>
+                        <div>Snare</div>
                         {user && (
                             <>
                                 <Input

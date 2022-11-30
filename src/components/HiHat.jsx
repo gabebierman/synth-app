@@ -82,7 +82,7 @@ function Hat() {
                             justifyContent: "space-between",
                         }}
                     >
-                        <div>Synthesizer</div>
+                        <div>Hi Hat</div>
                         {user && (
                             <>
                                 <Input
