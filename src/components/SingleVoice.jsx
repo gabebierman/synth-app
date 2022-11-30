@@ -9,11 +9,20 @@ import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
-import { Button, Input, MenuItem, Select, TextField } from "@mui/material";
+import {
+    Button,
+    FormControl,
+    Input,
+    InputLabel,
+    MenuItem,
+    Select,
+    TextField,
+} from "@mui/material";
 import { useSynthContext } from "../shared/context/SynthContext";
 import { v4 as uuidv4 } from "uuid";
 import { useUserContext } from "../shared/context/UserContext";
 import { ModuleDiv } from "../shared/styled/ModuleDiv";
+import { InputOutlined } from "@mui/icons-material";
 
 const initialPattern = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -44,14 +53,9 @@ function SingleVoiceDisplay() {
     const { addSynth, removeSynth } = useSynthContext();
     const { user } = useUserContext();
     const [module_id, setModuleID] = useState(uuidv4());
-    const pull = user?.favorites.synth;
-    const synths = [];
-    if (user && pull.length < 0) {
-        for (let i = 0; i < pull.length; i++) {
-            synths.push(user.favorites.synth[i]);
-        }
-    }
+    const synths = user?.favorites.synth;
     console.log("synth arr", synths);
+
     const name = "test";
     const uuid = user?.user.id;
 
@@ -84,35 +88,39 @@ function SingleVoiceDisplay() {
                         }}
                     >
                         <div>Synthesizer</div>
-                        <Input placeholder="preset name" size="small"></Input>
-                        <Button
-                            style={{ fontSize: "10px", maxHeight: "50px" }}
-                            size="small"
-                            variant="contained"
-                            onClick={() => {
-                                addSynth({
-                                    module_id,
-                                    attack,
-                                    decay,
-                                    sustain,
-                                    release,
-                                    osc,
-                                    distortionAmount,
-                                    distortionWet,
-                                    chanVol,
-                                    delayDelayTime,
-                                    delayFeedback,
-                                    delayMaxDelay,
-                                    delayWet,
-                                    name,
-                                    uuid,
-                                    // pattern,
-                                });
-                                console.log(user);
-                            }}
-                        >
-                            save module to presets
-                        </Button>
+                        {user && (
+                            <>
+                                <Input placeholder="preset name" size="small"></Input>
+                                <Button
+                                    style={{ fontSize: "10px", maxHeight: "50px" }}
+                                    size="small"
+                                    variant="contained"
+                                    onClick={() => {
+                                        addSynth({
+                                            module_id,
+                                            attack,
+                                            decay,
+                                            sustain,
+                                            release,
+                                            osc,
+                                            distortionAmount,
+                                            distortionWet,
+                                            chanVol,
+                                            delayDelayTime,
+                                            delayFeedback,
+                                            delayMaxDelay,
+                                            delayWet,
+                                            name,
+                                            uuid,
+                                            // pattern,
+                                        });
+                                        console.log(user);
+                                    }}
+                                >
+                                    save module to presets
+                                </Button>{" "}
+                            </>
+                        )}
                     </div>
 
                     <ModuleDiv>
@@ -188,8 +196,27 @@ function SingleVoiceDisplay() {
                             setDelayWet={setDelayWet}
                         ></DelayDisplay>
                     </div>
-                </div>
 
+                    {user && (
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignContent: "center",
+                                justifyItems: "center",
+                                alignItems: "center",
+                            }}
+                        >
+                            <div style={{ margin: "0px 20px" }}>Select a preset to load</div>
+                            <select style={{ minWidth: "100px" }}>
+                                {user.favorites.synth.length > 0 &&
+                                    user.favorites.synth.map((e) => (
+                                        <option value={e.name}>{e.name}</option>
+                                    ))}
+                            </select>
+                        </div>
+                    )}
+                </div>
                 <SequencerDisplay
                     synth={synthModule}
                     pattern={pattern}
