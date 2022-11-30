@@ -55,7 +55,7 @@ function Kick() {
     return (
         <>
             <ModuleDiv>
-                <div>
+                <div style={{ display: "flex", flexDirection: "column", margin: "10px" }}>
                     <div>Kick</div>
                     {/* <Button
                         variant="contained"
@@ -85,56 +85,61 @@ function Kick() {
                         (does not save sequences)
                     </Button> */}
 
-                    <div style={{ display: "flex" }}>
+                    <ModuleDiv>
                         <div>
-                            <label>Master Volume</label>
+                            <label>Volume</label>
                             <Knob
                                 min={-30}
                                 max={30}
-                                size={75}
+                                size={50}
                                 value={chanVol}
                                 textColor={"white"}
                                 onChange={(e) => setChanVol(e.value)}
                             ></Knob>
+
+                            {!mute && (
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    id="mute"
+                                    size="small"
+                                    style={{ maxHeight: "50px" }}
+                                    onClick={() => (
+                                        setChanVol(-1000), setMute((prevState) => !prevState)
+                                    )}
+                                >
+                                    mute
+                                </Button>
+                            )}
+                            {mute && (
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    id="mute"
+                                    size="small"
+                                    style={{ maxHeight: "50px" }}
+                                    onClick={() => (
+                                        setChanVol(0), setMute((prevState) => !prevState)
+                                    )}
+                                >
+                                    unmute
+                                </Button>
+                            )}
                         </div>
-                        {!mute && (
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                id="mute"
-                                onClick={() => (
-                                    setChanVol(-1000), setMute((prevState) => !prevState)
-                                )}
-                            >
-                                mute
-                            </Button>
-                        )}
-                        {mute && (
-                            <Button
-                                variant="contained"
-                                color="error"
-                                id="mute"
-                                onClick={() => (
-                                    setChanVol(0), setMute((prevState) => !prevState)
-                                )}
-                            >
-                                unmute
-                            </Button>
-                        )}
-                    </div>
-                    <MembraneSynthDisplay
-                        setPitchDecay={setPitchDecay}
-                        setAttack={setAttack}
-                        setDecay={setDecay}
-                        setSustain={setSustain}
-                        setRelease={setRelease}
-                        pitchDecay={pitchDecay}
-                        synth={synthModule}
-                        attack={attack}
-                        decay={decay}
-                        sustain={sustain}
-                        release={release}
-                    ></MembraneSynthDisplay>
+                        <MembraneSynthDisplay
+                            setPitchDecay={setPitchDecay}
+                            setAttack={setAttack}
+                            setDecay={setDecay}
+                            setSustain={setSustain}
+                            setRelease={setRelease}
+                            pitchDecay={pitchDecay}
+                            synth={synthModule}
+                            attack={attack}
+                            decay={decay}
+                            sustain={sustain}
+                            release={release}
+                        ></MembraneSynthDisplay>
+                    </ModuleDiv>
                     <div style={{ display: "flex" }}>
                         <DistortionDisplay
                             setDistortionAmount={setDistortionAmount}
@@ -154,7 +159,15 @@ function Kick() {
                         ></DelayDisplay>
                     </div>
                 </div>
-                <KickSequencerDisplay synth={synthModule}></KickSequencerDisplay>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                    }}
+                >
+                    <KickSequencerDisplay synth={synthModule}></KickSequencerDisplay>
+                </div>
             </ModuleDiv>
         </>
     );
