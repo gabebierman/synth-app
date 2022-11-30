@@ -12,6 +12,7 @@ import SnareSequencerDisplay from "../shared/components/Sequencer Display/SnareS
 import { useSnareContext } from "../shared/context/SnareContext";
 import { useUserContext } from "../shared/context/UserContext";
 import { v4 as uuidv4 } from "uuid";
+import { ModuleDiv } from "../shared/styled/ModuleDiv";
 
 function Snare() {
     const [attack, setAttack] = useState(0.001);
@@ -51,10 +52,10 @@ function Snare() {
 
     return (
         <>
-            <div style={{ display: "flex" }}>
-                <div>
+            <ModuleDiv>
+                <div style={{ display: "flex", flexDirection: "column", margin: "10px" }}>
                     <div>Snare</div>
-                    <Button
+                    {/* <Button
                         variant="contained"
                         onClick={() => {
                             addSnare({
@@ -80,9 +81,8 @@ function Snare() {
                         Add channel to favorites
                         <br></br>
                         (does not save sequences)
-                    </Button>
-
-                    <div style={{ display: "flex" }}>
+                    </Button> */}
+                    <ModuleDiv>
                         <div>
                             <label>Master Volume</label>
                             <Knob
@@ -93,43 +93,43 @@ function Snare() {
                                 textColor={"white"}
                                 onChange={(e) => setChanVol(e.value)}
                             ></Knob>
+                            {!mute && (
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    id="mute"
+                                    onClick={() => (
+                                        setChanVol(-1000), setMute((prevState) => !prevState)
+                                    )}
+                                >
+                                    mute
+                                </Button>
+                            )}
+                            {mute && (
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    id="mute"
+                                    onClick={() => (
+                                        setChanVol(0), setMute((prevState) => !prevState)
+                                    )}
+                                >
+                                    unmute
+                                </Button>
+                            )}
                         </div>
-                        {!mute && (
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                id="mute"
-                                onClick={() => (
-                                    setChanVol(-1000), setMute((prevState) => !prevState)
-                                )}
-                            >
-                                mute
-                            </Button>
-                        )}
-                        {mute && (
-                            <Button
-                                variant="contained"
-                                color="error"
-                                id="mute"
-                                onClick={() => (
-                                    setChanVol(0), setMute((prevState) => !prevState)
-                                )}
-                            >
-                                unmute
-                            </Button>
-                        )}
-                    </div>
-                    <NoiseSynthFilterDisplay
-                        setAttack={setAttack}
-                        setDecay={setDecay}
-                        setSustain={setSustain}
-                        setRelease={setRelease}
-                        synth={synthModule}
-                        attack={attack}
-                        decay={decay}
-                        sustain={sustain}
-                        release={release}
-                    ></NoiseSynthFilterDisplay>
+                        <NoiseSynthFilterDisplay
+                            setAttack={setAttack}
+                            setDecay={setDecay}
+                            setSustain={setSustain}
+                            setRelease={setRelease}
+                            synth={synthModule}
+                            attack={attack}
+                            decay={decay}
+                            sustain={sustain}
+                            release={release}
+                        ></NoiseSynthFilterDisplay>
+                    </ModuleDiv>
                     <div style={{ display: "flex" }}>
                         <DistortionDisplay
                             setDistortionAmount={setDistortionAmount}
@@ -148,9 +148,17 @@ function Snare() {
                             setDelayWet={setDelayWet}
                         ></DelayDisplay>
                     </div>
+                </div>{" "}
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                    }}
+                >
+                    <SnareSequencerDisplay synth={synthModule}></SnareSequencerDisplay>
                 </div>
-                <SnareSequencerDisplay synth={synthModule}></SnareSequencerDisplay>
-            </div>
+            </ModuleDiv>
         </>
     );
 }

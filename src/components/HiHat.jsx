@@ -12,6 +12,7 @@ import NoiseSynthDisplay from "../shared/components/Synth Displays/NoiseSynthDis
 import { useHatContext } from "../shared/context/HatContext";
 import { useUserContext } from "../shared/context/UserContext";
 import { v4 as uuidv4 } from "uuid";
+import { ModuleDiv } from "../shared/styled/ModuleDiv";
 
 function Hat() {
     const [attack, setAttack] = useState(0);
@@ -51,10 +52,11 @@ function Hat() {
 
     return (
         <>
-            <div style={{ display: "flex" }}>
-                <div>
+            <ModuleDiv>
+                <div style={{ display: "flex", flexDirection: "column", margin: "10px" }}>
                     <div>Hi Hat</div>
-                    <Button
+
+                    {/* <Button
                         variant="contained"
                         onClick={() => {
                             addHat({
@@ -80,11 +82,10 @@ function Hat() {
                         Add channel to favorites
                         <br></br>
                         (does not save sequences)
-                    </Button>
-
-                    <div style={{ display: "flex" }}>
+                    </Button> */}
+                    <ModuleDiv>
                         <div>
-                            <label>Master Volume</label>
+                            <label>Volume</label>
                             <Knob
                                 min={-30}
                                 max={30}
@@ -93,43 +94,45 @@ function Hat() {
                                 textColor={"white"}
                                 onChange={(e) => setChanVol(e.value)}
                             ></Knob>
+                            {!mute && (
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    id="mute"
+                                    onClick={() => (
+                                        setChanVol(-1000), setMute((prevState) => !prevState)
+                                    )}
+                                >
+                                    mute
+                                </Button>
+                            )}
+                            {mute && (
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    id="mute"
+                                    onClick={() => (
+                                        setChanVol(0), setMute((prevState) => !prevState)
+                                    )}
+                                >
+                                    unmute
+                                </Button>
+                            )}
                         </div>
-                        {!mute && (
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                id="mute"
-                                onClick={() => (
-                                    setChanVol(-1000), setMute((prevState) => !prevState)
-                                )}
-                            >
-                                mute
-                            </Button>
-                        )}
-                        {mute && (
-                            <Button
-                                variant="contained"
-                                color="error"
-                                id="mute"
-                                onClick={() => (
-                                    setChanVol(0), setMute((prevState) => !prevState)
-                                )}
-                            >
-                                unmute
-                            </Button>
-                        )}
-                    </div>
-                    <NoiseSynthDisplay
-                        setAttack={setAttack}
-                        setDecay={setDecay}
-                        setSustain={setSustain}
-                        setRelease={setRelease}
-                        synth={synthModule}
-                        attack={attack}
-                        decay={decay}
-                        sustain={sustain}
-                        release={release}
-                    ></NoiseSynthDisplay>
+
+                        <NoiseSynthDisplay
+                            setAttack={setAttack}
+                            setDecay={setDecay}
+                            setSustain={setSustain}
+                            setRelease={setRelease}
+                            synth={synthModule}
+                            attack={attack}
+                            decay={decay}
+                            sustain={sustain}
+                            release={release}
+                        ></NoiseSynthDisplay>
+                    </ModuleDiv>
+
                     <div style={{ display: "flex" }}>
                         <DistortionDisplay
                             setDistortionAmount={setDistortionAmount}
@@ -149,8 +152,16 @@ function Hat() {
                         ></DelayDisplay>
                     </div>
                 </div>
-                <HiHatSeqeuncerDisplay synth={synthModule}></HiHatSeqeuncerDisplay>
-            </div>
+                <div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                    }}
+                >
+                    <HiHatSeqeuncerDisplay synth={synthModule}></HiHatSeqeuncerDisplay>
+                </div>
+            </ModuleDiv>
         </>
     );
 }
