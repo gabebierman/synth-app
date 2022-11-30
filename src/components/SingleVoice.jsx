@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import * as tone from "tone";
 import { connect } from "react-redux";
 import DelayDisplay from "../shared/components/FX Displays/DelayDisplay";
@@ -53,8 +53,31 @@ function SingleVoiceDisplay() {
     const { addSynth, removeSynth } = useSynthContext();
     const { user } = useUserContext();
     const [module_id, setModuleID] = useState(uuidv4());
-    const synths = user?.favorites.synth;
-    console.log("synth arr", synths);
+    const [preset, setPreset] = useState({});
+    console.log("presets", preset);
+    console.log("synths", user?.favorites.synth);
+
+    const ref = useRef(false);
+
+    useEffect(() => {
+        //set params pulled from favorite
+        let params = user?.favorites.synth.find((e) => e.module_id === preset);
+        if (ref.current) {
+            setAttack(params?.attack);
+            setDecay(params?.decay);
+            setSustain(params?.sustain);
+            setRelease(params?.release);
+            setOsc(params?.osc);
+            setDistortionAmount(params?.distortionAmount);
+            setDistortionWet(params?.distortionWet);
+            setChanVol(params?.chanVol);
+            setDelayDelayTime(params?.delayDelayTime);
+            setDelayFeedback(params?.delayFeedback);
+            setDelayMaxDelay(params?.delayMaxDelay);
+            setDelayWet(params?.delayWet);
+        } else ref.current = true;
+        console.log("params", params);
+    }, [preset]);
 
     const name = "test";
     const uuid = user?.user.id;
@@ -208,10 +231,14 @@ function SingleVoiceDisplay() {
                             }}
                         >
                             <div style={{ margin: "0px 20px" }}>Select a preset to load</div>
-                            <select style={{ minWidth: "100px" }}>
+                            <select
+                                style={{ minWidth: "100px" }}
+                                onChange={(e) => setPreset(e.target.value)}
+                            >
+                                <option>This option intentionally left blank</option>
                                 {user.favorites.synth.length > 0 &&
                                     user.favorites.synth.map((e) => (
-                                        <option value={e.name}>{e.name}</option>
+                                        <option value={e.module_id}>{e.name}</option>
                                     ))}
                             </select>
                         </div>
