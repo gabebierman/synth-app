@@ -4,7 +4,7 @@ import { getByUser } from "../models/getByUser.models";
 // import validateData from "../middleware/validateUserData.middleware";
 const router = express.Router();
 import jwt from "jsonwebtoken";
-// import auth from "../middleware/auth.middleware";
+import auth from "../middleware/auth.middleware";
 
 router.put("/register", async (req, res) => {
     const { username, password } = req.body;
@@ -28,7 +28,7 @@ router.get("/logout", (req, res) => {
     return res.send({ success: true, data: "successfully logged out" });
 });
 
-router.get("/verify", async (req, res) => {
+router.get("/verify", auth, async (req, res) => {
     const resObj = await getByUser(req.user.id);
     if (!resObj.success) return res.send(resObj);
     return res.send({
