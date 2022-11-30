@@ -10,7 +10,6 @@ import { Button } from "@mui/material";
 function ScaleSelectDisplay({ scale, setScale }) {
     const [key, setKey] = useState("major");
     const [tonic, setTonic] = useState("C");
-    console.log(scale);
     return (
         <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <div style={{ display: "flex", flexDirection: "column" }}>
@@ -19,7 +18,7 @@ function ScaleSelectDisplay({ scale, setScale }) {
                     color="primary"
                     id="tonic"
                     value={tonic}
-                    onChange={(e) => (setTonic(e.target.value), console.log(tonic))}
+                    onChange={(e) => setTonic(e.target.value)}
                 >
                     <MenuItem value="C">C</MenuItem>
                     <MenuItem value="C#">C# / Bb</MenuItem>

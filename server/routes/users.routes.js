@@ -4,7 +4,7 @@ import { getByUser } from "../models/getByUser.models";
 // import validateData from "../middleware/validateUserData.middleware";
 const router = express.Router();
 import jwt from "jsonwebtoken";
-import auth from "../middleware/auth.middleware";
+import auth from "../middleware/user/auth.middleware";
 
 router.put("/register", async (req, res) => {
     const { username, password } = req.body;

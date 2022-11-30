@@ -136,7 +136,6 @@ function SingleVoiceDisplay() {
                                             uuid,
                                             // pattern,
                                         });
-                                        console.log(user);
                                     }}
                                 >
                                     save module to presets

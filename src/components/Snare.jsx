@@ -53,7 +53,6 @@ function Snare() {
             setDelayMaxDelay(params?.delayMaxDelay);
             setDelayWet(params?.delayWet);
         } else ref.current = true;
-        console.log("params", params);
     }, [preset]);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
@@ -113,7 +112,6 @@ function Snare() {
                                             uuid,
                                             // pattern,
                                         });
-                                        console.log(user);
                                     }}
                                 >
                                     save module to presets

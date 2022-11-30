@@ -20,14 +20,12 @@ const Sequencer = ({ synth, setOctave, octave, setPatternState }) => {
     ];
     const [activeColumn, setColumn] = useState(0);
     const [pattern, updatePattern] = useState(initialPattern);
-    // console.log("scale state arr", scale);
     // const bar = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     const notes = [].reverse();
     for (let i = 0; i < scale.length; i++) {
         // initialPattern.push(bar)
         notes.push(`${scale[i]}${octave}`);
     }
-    // console.log(scale);
 
     useEffect(() => {
         const loop = new tone.Sequence(

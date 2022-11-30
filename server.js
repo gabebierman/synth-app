@@ -18,6 +18,12 @@ app.use("/api/synthfavorites", synthFavoriteRoutes);
 app.use("/api/hatfavorites", hatFavoriteRoutes);
 app.use("/api/kickfavorites", kickFavoriteRoutes);
 app.use("/api/snarefavorites", snareFavoriteRoutes);
+if (process.env.NODE_ENV === "production") {
+    app.enable("trust proxy");
+    app.use((req, res, next) => {
+        req.secure ? next() : res.redirect("https://" + req.headers.host + req.url);
+    });
+}
 app.get("*", (req, res) => {
     return res.sendFile(__dirname + "/build/index.html");
 });
