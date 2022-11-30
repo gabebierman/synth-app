@@ -9,7 +9,7 @@ import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
-import { Button, MenuItem, Select } from "@mui/material";
+import { Button, Input, MenuItem, Select, TextField } from "@mui/material";
 import { useSynthContext } from "../shared/context/SynthContext";
 import { v4 as uuidv4 } from "uuid";
 import { useUserContext } from "../shared/context/UserContext";
@@ -77,14 +77,43 @@ function SingleVoiceDisplay() {
         <>
             <ModuleDiv style={{ justifyContent: "space-evenly", width: "94%" }}>
                 <div style={{ display: "flex", flexDirection: "column", margin: "10px" }}>
-                    <div>Synthesizer</div>
-                    {/* <Select value="">
-                        {synths.map((e) => (
-                            <MenuItem key={e.module_id} value={e.module_id}>
-                                {e.name}
-                            </MenuItem>
-                        ))}
-                    </Select> */}
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                        }}
+                    >
+                        <div>Synthesizer</div>
+                        <Input placeholder="preset name" size="small"></Input>
+                        <Button
+                            style={{ fontSize: "10px", maxHeight: "50px" }}
+                            size="small"
+                            variant="contained"
+                            onClick={() => {
+                                addSynth({
+                                    module_id,
+                                    attack,
+                                    decay,
+                                    sustain,
+                                    release,
+                                    osc,
+                                    distortionAmount,
+                                    distortionWet,
+                                    chanVol,
+                                    delayDelayTime,
+                                    delayFeedback,
+                                    delayMaxDelay,
+                                    delayWet,
+                                    name,
+                                    uuid,
+                                    // pattern,
+                                });
+                                console.log(user);
+                            }}
+                        >
+                            save module to presets
+                        </Button>
+                    </div>
 
                     <ModuleDiv>
                         <div>
@@ -141,36 +170,6 @@ function SingleVoiceDisplay() {
                         ></MonoSynthDisplay>
                     </ModuleDiv>
 
-                    {/* <Button
-                            style={{ fontSize: "10px", maxHeight: "50px" }}
-                            size="small"
-                            variant="contained"
-                            onClick={() => {
-                                addSynth({
-                                    module_id,
-                                    attack,
-                                    decay,
-                                    sustain,
-                                    release,
-                                    osc,
-                                    distortionAmount,
-                                    distortionWet,
-                                    chanVol,
-                                    delayDelayTime,
-                                    delayFeedback,
-                                    delayMaxDelay,
-                                    delayWet,
-                                    name,
-                                    uuid,
-                                    // pattern,
-                                });
-                                console.log(user);
-                            }}
-                        >
-                            save module
-                            <br></br>
-                            to favorites
-                        </Button> */}
                     <div style={{ display: "flex" }}>
                         <DistortionDisplay
                             setDistortionAmount={setDistortionAmount}
