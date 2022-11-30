@@ -34,7 +34,7 @@ function SignInDisplay() {
 
     return (
         <>
-            <Nav>
+            <Nav style={{ width: "94%" }}>
                 <div style={{ display: "flex" }}>
                     <TextField
                         label="Username"

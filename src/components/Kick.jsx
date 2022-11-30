@@ -140,7 +140,7 @@ function Kick() {
                             release={release}
                         ></MembraneSynthDisplay>
                     </ModuleDiv>
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
                         <DistortionDisplay
                             setDistortionAmount={setDistortionAmount}
                             setDistortionWet={setDistortionWet}
@@ -158,14 +158,6 @@ function Kick() {
                             setDelayWet={setDelayWet}
                         ></DelayDisplay>
                     </div>
-                </div>
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                    }}
-                >
                     <KickSequencerDisplay synth={synthModule}></KickSequencerDisplay>
                 </div>
             </ModuleDiv>

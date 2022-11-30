@@ -89,16 +89,19 @@ function Hat() {
                             <Knob
                                 min={-30}
                                 max={30}
-                                size={75}
+                                size={50}
                                 value={chanVol}
                                 textColor={"white"}
                                 onChange={(e) => setChanVol(e.value)}
                             ></Knob>
+
                             {!mute && (
                                 <Button
                                     variant="outlined"
                                     color="error"
                                     id="mute"
+                                    size="small"
+                                    style={{ maxHeight: "50px" }}
                                     onClick={() => (
                                         setChanVol(-1000), setMute((prevState) => !prevState)
                                     )}
@@ -111,6 +114,8 @@ function Hat() {
                                     variant="contained"
                                     color="error"
                                     id="mute"
+                                    size="small"
+                                    style={{ maxHeight: "50px" }}
                                     onClick={() => (
                                         setChanVol(0), setMute((prevState) => !prevState)
                                     )}
@@ -133,7 +138,7 @@ function Hat() {
                         ></NoiseSynthDisplay>
                     </ModuleDiv>
 
-                    <div style={{ display: "flex" }}>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
                         <DistortionDisplay
                             setDistortionAmount={setDistortionAmount}
                             setDistortionWet={setDistortionWet}
@@ -151,14 +156,6 @@ function Hat() {
                             setDelayWet={setDelayWet}
                         ></DelayDisplay>
                     </div>
-                </div>
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                    }}
-                >
                     <HiHatSeqeuncerDisplay synth={synthModule}></HiHatSeqeuncerDisplay>
                 </div>
             </ModuleDiv>

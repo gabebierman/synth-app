@@ -15,6 +15,7 @@ import HitHat from "./components/HiHat";
 import Snare from "./components/Snare";
 import Menu from "./shared/components/SignInDisplay";
 import SignInDisplay from "./shared/components/SignInDisplay";
+import { ModuleDiv } from "./shared/styled/ModuleDiv";
 
 function App() {
     const [tempo, setTempo] = useState(144);
@@ -27,7 +28,9 @@ function App() {
     tone.Transport.bpm.value = tempo;
     return (
         <>
-            <SignInDisplay></SignInDisplay>
+            <div style={{ display: "flex", width: "auto", justifyContent: "space-evenly" }}>
+                <SignInDisplay></SignInDisplay>
+            </div>
             <div style={{ padding: "5px", display: "flex", justifyContent: "space-evenly" }}>
                 <div
                     style={{
@@ -58,10 +61,14 @@ function App() {
                 </div>
                 <ScaleSelectDisplay></ScaleSelectDisplay>
             </div>
-            <SingleVoiceDisplay></SingleVoiceDisplay>
-            <Kick></Kick>
-            <HitHat></HitHat>
-            <Snare></Snare>
+            <div style={{ display: "flex", width: "auto", justifyContent: "space-evenly" }}>
+                <SingleVoiceDisplay></SingleVoiceDisplay>
+            </div>
+            <div style={{ display: "flex", width: "auto", justifyContent: "space-evenly" }}>
+                <Kick></Kick>
+                <HitHat></HitHat>
+                <Snare></Snare>
+            </div>
         </>
     );
 }

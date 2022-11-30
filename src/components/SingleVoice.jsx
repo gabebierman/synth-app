@@ -75,7 +75,7 @@ function SingleVoiceDisplay() {
     }).connect(distortionModule.input);
     return (
         <>
-            <ModuleDiv>
+            <ModuleDiv style={{ justifyContent: "space-evenly", width: "94%" }}>
                 <div style={{ display: "flex", flexDirection: "column", margin: "10px" }}>
                     <div>Synthesizer</div>
                     {/* <Select value="">
