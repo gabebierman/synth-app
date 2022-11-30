@@ -54,13 +54,12 @@ function SingleVoiceDisplay() {
     const { user } = useUserContext();
     const [module_id, setModuleID] = useState(uuidv4());
     const [preset, setPreset] = useState({});
-    console.log("presets", preset);
-    console.log("synths", user?.favorites.synth);
+    const [name, setName] = useState("You forgot to set a name for your preset");
+    const uuid = user?.user.id;
 
     const ref = useRef(false);
 
     useEffect(() => {
-        //set params pulled from favorite
         let params = user?.favorites.synth.find((e) => e.module_id === preset);
         if (ref.current) {
             setAttack(params?.attack);
@@ -76,11 +75,7 @@ function SingleVoiceDisplay() {
             setDelayMaxDelay(params?.delayMaxDelay);
             setDelayWet(params?.delayWet);
         } else ref.current = true;
-        console.log("params", params);
     }, [preset]);
-
-    const name = "test";
-    const uuid = user?.user.id;
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const delayModule = delay({
@@ -113,7 +108,11 @@ function SingleVoiceDisplay() {
                         <div>Synthesizer</div>
                         {user && (
                             <>
-                                <Input placeholder="preset name" size="small"></Input>
+                                <Input
+                                    placeholder="preset name"
+                                    size="small"
+                                    onChange={(e) => setName(e.target.value)}
+                                ></Input>
                                 <Button
                                     style={{ fontSize: "10px", maxHeight: "50px" }}
                                     size="small"
