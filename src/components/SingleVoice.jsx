@@ -9,10 +9,11 @@ import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import monoSynth from "../shared/functions/synths/MonoSynth";
 import { Knob } from "primereact/knob";
-import { Button } from "@mui/material";
+import { Button, MenuItem, Select } from "@mui/material";
 import { useSynthContext } from "../shared/context/SynthContext";
 import { v4 as uuidv4 } from "uuid";
 import { useUserContext } from "../shared/context/UserContext";
+import { ModuleDiv } from "../shared/styled/ModuleDiv";
 
 const initialPattern = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -40,15 +41,19 @@ function SingleVoiceDisplay() {
     const [delayWet, setDelayWet] = useState(0);
     const [mute, setMute] = useState(false);
     const [pattern, setPattern] = useState(initialPattern);
-    const { synths, addSynth, removeSynth } = useSynthContext();
+    const { addSynth, removeSynth } = useSynthContext();
     const { user } = useUserContext();
     const [module_id, setModuleID] = useState(uuidv4());
-
+    const pull = user?.favorites.synth;
+    const synths = [];
+    if (user && pull.length < 0) {
+        for (let i = 0; i < pull.length; i++) {
+            synths.push(user.favorites.synth[i]);
+        }
+    }
+    console.log("synth arr", synths);
     const name = "test";
     const uuid = user?.user.id;
-
-    const user_id = user?.id;
-    console.log(user_id);
 
     const chan = new tone.Channel({ volume: chanVol }).toDestination();
     const delayModule = delay({
@@ -70,87 +75,102 @@ function SingleVoiceDisplay() {
     }).connect(distortionModule.input);
     return (
         <>
-            <div style={{ display: "flex" }}>
-                <div>
+            <ModuleDiv>
+                <div style={{ display: "flex", flexDirection: "column", margin: "10px" }}>
                     <div>Synthesizer</div>
-                    <Button
-                        variant="contained"
-                        onClick={() => {
-                            addSynth({
-                                module_id,
-                                attack,
-                                decay,
-                                sustain,
-                                release,
-                                osc,
-                                distortionAmount,
-                                distortionWet,
-                                chanVol,
-                                delayDelayTime,
-                                delayFeedback,
-                                delayMaxDelay,
-                                delayWet,
-                                name,
-                                uuid,
-                                // pattern,
-                            });
-                            console.log(user);
-                        }}
-                    >
-                        Add channel to favorites
-                        <br></br>
-                        (does not save sequences)
-                    </Button>
-                    <div style={{ display: "flex" }}>
+                    {/* <Select value="">
+                        {synths.map((e) => (
+                            <MenuItem key={e.module_id} value={e.module_id}>
+                                {e.name}
+                            </MenuItem>
+                        ))}
+                    </Select> */}
+
+                    <ModuleDiv>
                         <div>
-                            <label>Master Volume</label>
+                            <div>Volume</div>
                             <Knob
                                 min={-30}
                                 max={30}
-                                size={75}
+                                size={50}
                                 value={chanVol}
                                 textColor={"white"}
                                 onChange={(e) => setChanVol(e.value)}
                             ></Knob>
+                            {!mute && (
+                                <Button
+                                    variant="outlined"
+                                    color="error"
+                                    id="mute"
+                                    size="small"
+                                    style={{ maxHeight: "50px" }}
+                                    onClick={() => (
+                                        setChanVol(-1000), setMute((prevState) => !prevState)
+                                    )}
+                                >
+                                    mute
+                                </Button>
+                            )}
+                            {mute && (
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    id="mute"
+                                    size="small"
+                                    style={{ maxHeight: "50px" }}
+                                    onClick={() => (
+                                        setChanVol(0), setMute((prevState) => !prevState)
+                                    )}
+                                >
+                                    unmute
+                                </Button>
+                            )}
                         </div>
-                        {!mute && (
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                id="mute"
-                                onClick={() => (
-                                    setChanVol(-1000), setMute((prevState) => !prevState)
-                                )}
-                            >
-                                mute
-                            </Button>
-                        )}
-                        {mute && (
-                            <Button
-                                variant="contained"
-                                color="error"
-                                id="mute"
-                                onClick={() => (
-                                    setChanVol(0), setMute((prevState) => !prevState)
-                                )}
-                            >
-                                unmute
-                            </Button>
-                        )}
-                    </div>
-                    <MonoSynthDisplay
-                        setAttack={setAttack}
-                        setDecay={setDecay}
-                        setSustain={setSustain}
-                        setRelease={setRelease}
-                        setPort={setPort}
-                        setOsc={setOsc}
-                        synth={synthModule}
-                        attack={attack}
-                        decay={decay}
-                        sustain={sustain}
-                        release={release}
-                    ></MonoSynthDisplay>
+                        <MonoSynthDisplay
+                            setAttack={setAttack}
+                            setDecay={setDecay}
+                            setSustain={setSustain}
+                            setRelease={setRelease}
+                            setPort={setPort}
+                            setOsc={setOsc}
+                            synth={synthModule}
+                            attack={attack}
+                            decay={decay}
+                            sustain={sustain}
+                            release={release}
+                        ></MonoSynthDisplay>
+                    </ModuleDiv>
+
+                    {/* <Button
+                            style={{ fontSize: "10px", maxHeight: "50px" }}
+                            size="small"
+                            variant="contained"
+                            onClick={() => {
+                                addSynth({
+                                    module_id,
+                                    attack,
+                                    decay,
+                                    sustain,
+                                    release,
+                                    osc,
+                                    distortionAmount,
+                                    distortionWet,
+                                    chanVol,
+                                    delayDelayTime,
+                                    delayFeedback,
+                                    delayMaxDelay,
+                                    delayWet,
+                                    name,
+                                    uuid,
+                                    // pattern,
+                                });
+                                console.log(user);
+                            }}
+                        >
+                            save module
+                            <br></br>
+                            to favorites
+                        </Button> */}
                     <div style={{ display: "flex" }}>
                         <DistortionDisplay
                             setDistortionAmount={setDistortionAmount}
@@ -170,12 +190,13 @@ function SingleVoiceDisplay() {
                         ></DelayDisplay>
                     </div>
                 </div>
+
                 <SequencerDisplay
                     synth={synthModule}
                     pattern={pattern}
                     setPatternState={setPattern}
                 ></SequencerDisplay>
-            </div>
+            </ModuleDiv>
         </>
     );
 }

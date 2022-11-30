@@ -12,6 +12,7 @@ import membraneSynth from "../shared/functions/synths/MembraneSynth";
 import { useKickContext } from "../shared/context/KickContext";
 import { useUserContext } from "../shared/context/UserContext";
 import { v4 as uuidv4 } from "uuid";
+import { ModuleDiv } from "../shared/styled/ModuleDiv";
 
 function Kick() {
     const [attack, setAttack] = useState(0.001);
@@ -53,10 +54,10 @@ function Kick() {
 
     return (
         <>
-            <div style={{ display: "flex" }}>
+            <ModuleDiv>
                 <div>
                     <div>Kick</div>
-                    <Button
+                    {/* <Button
                         variant="contained"
                         onClick={() => {
                             addKick({
@@ -82,7 +83,7 @@ function Kick() {
                         Add channel to favorites
                         <br></br>
                         (does not save sequences)
-                    </Button>
+                    </Button> */}
 
                     <div style={{ display: "flex" }}>
                         <div>
@@ -154,7 +155,7 @@ function Kick() {
                     </div>
                 </div>
                 <KickSequencerDisplay synth={synthModule}></KickSequencerDisplay>
-            </div>
+            </ModuleDiv>
         </>
     );
 }
