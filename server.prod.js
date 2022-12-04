@@ -42320,7 +42320,7 @@ var external_util_default = /*#__PURE__*/__webpack_require__.n(external_util_);
 
 
 var pool = mysql.createPool({
-  host: process && process.env && "localhost" || "localhost",
+  host: process && process.env && "synth-app-mysql.internal" || "synth-app-mysql.internal",
   user: process && process.env && "synth_app" || "synth_app",
   password: process && process.env && "BlueMustang22!" || "BlueMustang22!",
   database: process && process.env && "synth-app" || "synth-app",
@@ -43629,7 +43629,7 @@ app.get("*", function (req, res) {
   return res.sendFile(__dirname + "/build/index.html");
 });
 app.listen(PORT, function () {
-  return console.log("gif-app backend functional. Port ".concat(PORT));
+  return console.log("synth-app backend functional. Port ".concat(PORT));
 });
 })();
 
