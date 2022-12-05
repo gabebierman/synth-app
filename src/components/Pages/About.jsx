@@ -166,7 +166,19 @@ function About() {
                 }}
             >
                 <h2>Changelog</h2>
-                <div>11/29/2022: Initial deployment of project</div>
+                <div>
+                    11/29/2022: Initial deployment of project on{" "}
+                    <a
+                        href="fly.io"
+                        target="_blank"
+                        style={{ color: theme.palette.primary.main }}
+                    >
+                        fly.io
+                    </a>
+                </div>
+                <div>
+                    12/04/2022: Database connected, begin generative synthesis implementation
+                </div>
             </div>
         </div>
     );
