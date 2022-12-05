@@ -18,4 +18,25 @@ export const theme = createTheme({
             secondary: "#bedc7f",
         },
     },
+    components: {
+        // Name of the component
+        MuiSelect: {
+            styleOverrides: {
+                // Name of the slot
+                root: {
+                    border: "1px solid",
+                    borderColor: "#89a257",
+                },
+            },
+        },
+        MuiTextField: {
+            styleOverrides: {
+                // Name of the slot
+                root: {
+                    border: "1px 1px 1px 1px solid",
+                    borderColor: "#89a257",
+                },
+            },
+        },
+    },
 });

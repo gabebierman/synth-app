@@ -1,4 +1,4 @@
-# fly.toml file generated for synth-app on 2022-11-30T02:26:49-06:00
+# fly.toml file generated for synth-app on 2022-11-30T10:07:04-06:00
 
 app = "synth-app"
 kill_signal = "SIGINT"
@@ -6,6 +6,8 @@ kill_timeout = 5
 processes = []
 
 [env]
+  PORT = "8080"
+
 
 [experimental]
   allowed_public_ports = []

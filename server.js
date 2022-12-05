@@ -28,4 +28,4 @@ app.get("*", (req, res) => {
     return res.sendFile(__dirname + "/build/index.html");
 });
 
-app.listen(PORT, () => console.log(`gif-app backend functional. Port ${PORT}`));
+app.listen(PORT, () => console.log(`synth-app backend functional. Port ${PORT}`));
