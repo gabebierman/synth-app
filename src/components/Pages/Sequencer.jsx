@@ -35,6 +35,12 @@ function Sequencer() {
                 <HitHat></HitHat>
                 <Snare></Snare>
             </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ margin: "25px 0px 0px 0px" }}>
+                    WARNING: Changing paramaters while the sequencer running may cause the web
+                    audio interface to crash.
+                </div>
+            </div>
         </>
     );
 }

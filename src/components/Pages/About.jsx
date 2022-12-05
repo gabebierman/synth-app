@@ -46,6 +46,10 @@ function About() {
                     While this project has an official due date, I hope to keep maintaining and
                     updating the project in the months to come.
                 </div>
+                <br></br>
+                <div>
+                    Demo username: test-one <br></br> Demo password: password
+                </div>
             </div>
             <br></br>
             <div
