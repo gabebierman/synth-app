@@ -51,7 +51,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "back": "SET NODE_ENV=DEVELOPMENT && nodemon --exec babel-node server.js",
-    "prod": "webpack --config webpack.config.server.js"
+    "prod": "webpack --config webpack.config.server.js",
+    "deploy": "npm run build && flyctl deploy"
   },
   "eslintConfig": {
     "extends": [

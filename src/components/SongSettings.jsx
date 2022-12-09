@@ -1,4 +1,4 @@
-import { Fab } from "@mui/material";
+import { Fab, Slider } from "@mui/material";
 import React from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import StopIcon from "@mui/icons-material/Stop";
@@ -17,15 +17,15 @@ function SongSettings({ tempo, setTempo, playState, toggle }) {
                     }}
                 >
                     <label htmlFor="tempo">tempo: {tempo} BPM</label>
-                    <input
+                    <Slider
                         style={{ maxWidth: "150px" }}
-                        type="range"
-                        min="60"
-                        max="240"
+                        min={60}
+                        max={240}
                         id="tempo"
+                        size="small"
                         value={tempo}
                         onChange={(e) => setTempo(e.target.value)}
-                    ></input>
+                    ></Slider>
                 </div>
                 {!playState && (
                     <div

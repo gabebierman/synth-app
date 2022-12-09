@@ -5,7 +5,7 @@ import DistortionDisplay from "../shared/components/FX Displays/DistortionDispla
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import { Knob } from "primereact/knob";
-import { Button, Input } from "@mui/material";
+import { Button, Input, MenuItem, Select } from "@mui/material";
 import NoiseSynthFilter from "../shared/functions/synths/NoiseSynthFilter";
 import NoiseSynthFilterDisplay from "../shared/components/Synth Displays/NoiseSynthFilterDisplay";
 import SnareSequencerDisplay from "../shared/components/Sequencer Display/SnareSequencerDisplay";
@@ -203,16 +203,16 @@ function Snare() {
                             }}
                         >
                             <div style={{ margin: "0px 20px" }}>Select a preset to load</div>
-                            <select
+                            <Select
                                 style={{ minWidth: "100px" }}
                                 onChange={(e) => setPreset(e.target.value)}
                             >
-                                <option>This option intentionally left blank</option>
+                                <MenuItem disabled value=""></MenuItem>
                                 {user.favorites.synth.length > 0 &&
                                     user.favorites.synth.map((e) => (
-                                        <option value={e.module_id}>{e.name}</option>
+                                        <MenuItem value={e.module_id}>{e.name}</MenuItem>
                                     ))}
-                            </select>
+                            </Select>
                         </div>
                     )}
                 </div>

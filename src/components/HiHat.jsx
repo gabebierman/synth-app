@@ -7,7 +7,7 @@ import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import NoiseSynth from "../shared/functions/synths/NoiseSynth";
 import { Knob } from "primereact/knob";
-import { Button, Input } from "@mui/material";
+import { Button, Input, Select } from "@mui/material";
 import NoiseSynthDisplay from "../shared/components/Synth Displays/NoiseSynthDisplay";
 import { useHatContext } from "../shared/context/HatContext";
 import { useUserContext } from "../shared/context/UserContext";
@@ -205,16 +205,16 @@ function Hat() {
                             }}
                         >
                             <div style={{ margin: "0px 20px" }}>Select a preset to load</div>
-                            <select
+                            <Select
                                 style={{ minWidth: "100px" }}
                                 onChange={(e) => setPreset(e.target.value)}
                             >
-                                <option>This option intentionally left blank</option>
+                                <MenuItem disabled value=""></MenuItem>
                                 {user.favorites.synth.length > 0 &&
                                     user.favorites.synth.map((e) => (
-                                        <option value={e.module_id}>{e.name}</option>
+                                        <MenuItem value={e.module_id}>{e.name}</MenuItem>
                                     ))}
-                            </select>
+                            </Select>
                         </div>
                     )}
                 </div>
