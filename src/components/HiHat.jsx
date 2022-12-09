@@ -7,7 +7,7 @@ import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import NoiseSynth from "../shared/functions/synths/NoiseSynth";
 import { Knob } from "primereact/knob";
-import { Button, Input, Select } from "@mui/material";
+import { Button, Input, MenuItem, Select } from "@mui/material";
 import NoiseSynthDisplay from "../shared/components/Synth Displays/NoiseSynthDisplay";
 import { useHatContext } from "../shared/context/HatContext";
 import { useUserContext } from "../shared/context/UserContext";

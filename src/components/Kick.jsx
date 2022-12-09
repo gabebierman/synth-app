@@ -5,7 +5,7 @@ import DistortionDisplay from "../shared/components/FX Displays/DistortionDispla
 import KickSequencerDisplay from "../shared/components/Sequencer Display/KickSequencerDisplay";
 import MembraneSynthDisplay from "../shared/components/Synth Displays/MembraneSynthDisplay";
 import { Knob } from "primereact/knob";
-import { Button, Input, Select } from "@mui/material";
+import { Button, Input, MenuItem, Select } from "@mui/material";
 import delay from "../shared/functions/fx/Delay";
 import distortion from "../shared/functions/fx/Distortion";
 import membraneSynth from "../shared/functions/synths/MembraneSynth";
