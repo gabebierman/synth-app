@@ -151,7 +151,7 @@ function About() {
                     >
                         admin admin
                     </a>
-                    : Post-Punk for dancing
+                    : Angry post-punk for dancing
                 </div>
             </div>
             <br></br>
