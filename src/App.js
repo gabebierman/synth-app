@@ -8,6 +8,10 @@ import Sequencer from "./components/Pages/Sequencer";
 import Generative from "./components/Pages/Generative";
 import About from "./components/Pages/About";
 import SignInDisplay from "./shared/components/SignInDisplay";
+import * as tone from "tone";
+
+// const context = new tone.Context({ latencyHint: "playback" });
+// tone.setContext(context);
 
 function App() {
     return (
